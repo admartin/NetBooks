@@ -148,8 +148,22 @@ DROP TABLE IF EXISTS `netbooks`.`BooksRead` ;
 
 CREATE TABLE IF NOT EXISTS `netbooks`.`BooksRead` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+  `Books_id` INT NOT NULL,
+  `Users_username` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`id`, `Books_id`, `Users_username`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_BooksRead_Books1_idx` (`Books_id` ASC),
+  INDEX `fk_BooksRead_Users1_idx` (`Users_username` ASC),
+  CONSTRAINT `fk_BooksRead_Books1`
+    FOREIGN KEY (`Books_id`)
+    REFERENCES `netbooks`.`Books` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_BooksRead_Users1`
+    FOREIGN KEY (`Users_username`)
+    REFERENCES `netbooks`.`Users` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
