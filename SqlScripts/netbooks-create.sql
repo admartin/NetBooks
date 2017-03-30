@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS `netbooks`.`Users` (
   `city` VARCHAR(45) NULL,
   `state` VARCHAR(2) NULL,
   `subscription` INT NOT NULL,
-  `Usercol` VARCHAR(45) NULL,
   PRIMARY KEY (`username`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
