@@ -105,12 +105,19 @@ CREATE TABLE IF NOT EXISTS `netbooks`.`Reviews` (
   `rating` INT NULL,
   `details` VARCHAR(1000) NULL,
   `Books_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `Books_id`),
+  `Users_username` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`id`, `Books_id`, `Users_username`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   INDEX `fk_Reviews_Books1_idx` (`Books_id` ASC),
+  INDEX `fk_Reviews_Users1_idx` (`Users_username` ASC),
   CONSTRAINT `fk_Reviews_Books1`
     FOREIGN KEY (`Books_id`)
     REFERENCES `netbooks`.`Books` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Reviews_Users1`
+    FOREIGN KEY (`Users_username`)
+    REFERENCES `netbooks`.`Users` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
