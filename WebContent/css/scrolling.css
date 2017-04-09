@@ -99,6 +99,10 @@ a:hover {
     white-space: nowrap;
     margin: 5px 0;
     padding-bottom: 10px;
+}
+
+.row{
+    
     overflow: scroll;
     width: 100%;
 
