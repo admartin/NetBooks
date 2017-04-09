@@ -83,6 +83,15 @@
     height: 214px; 
     width: 150px;
     background-color: gray;   /* in case asset does not load */ 
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    -webkit-transition: 450ms all;
+    transition: 450ms all;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
 }
 
 .book img {
@@ -187,19 +196,19 @@ a:hover {
 }
 
 html {
-    overflow: hidden;
+    overflow: scroll;
     overflow-x: hidden;
 }
 
 /* Standardize scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar:horizontal {
     font-size: 15pt;
     width: 16px;
     color: #888;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb:horizontal {
     min-height: 4em;
     min-width: 4em;
     border-radius: 2em;
