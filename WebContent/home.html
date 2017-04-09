@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Netbooks</title>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $('#main').on('click','li',function(){
+                $("#title").text($(this).data('title'));
+                $("#bookimg").attr("src", $(this).data('image'));
+                $("#info").html(
+                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</p>'
+                    + '<p> ' + $(this).data('descr')
+                );
+                $('#myModal').modal('show');
+            })
+        });
+        </script>
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <!-- Navbar color override -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <!--Scolling UI -->
+        <link rel="stylesheet" href="css/scrolling.css">
+        
+    </head>
+    <body>  
+        
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="title" class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                  <div class="media">
+                      <div id="info" class="media-body">
+                          <!--pulled from jQuery-->
+                      </div>
+                      <div class="media-right">
+                        <img id="bookimg" src="" class="media-object" style="width:150px">
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Order Copy</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Read Now</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <div id="container">
+            
+            <!--Nav bar -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Netbooks</a>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> User
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Your Account</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Sign Out</a></li>
+                            </ul>
+                          </li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                          </div>
+                    </form>
+                </div>
+            </nav>
+            
+            <div id="main" role="main">
+                <!-- Book browser -->
+                <div id="browser">
+                    
+                    <!-- Category -->
+                    <div class="categoryTitle">Popular on Netbooks</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book" data-image="https://images.gr-assets.com/books/1424596966l/5297.jpg" data-title="Title"
+                                data-author="Author" data-year="Year" data-genre="Genre" data-rating="Rating" data-descr="Description of book goes here">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                    
+                     <!-- Category -->
+                    <div class="categoryTitle">Books Made Into Movies</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                    
+                    <!-- Category -->
+                    <div class="categoryTitle">Children's</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                                        
+                    <!-- Category -->
+                    <div class="categoryTitle">Romance</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                                    
+                    <!-- Category -->
+                    <div class="categoryTitle">Historical</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                    
+                    
+                    <!-- Category -->
+                    <div class="categoryTitle">Mystery</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                    
+                    <!-- Category -->
+                    <div class="categoryTitle">Textbooks</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1424596966l/5297.jpg" alt=""/></span>       
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327867269l/10210.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1320399351l/1885.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1381512375l/18490.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">                                
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1405973850l/2956.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1387151694l/17245.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1398003737l/236093.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388212715l/6185.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1364958765l/3836.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1327942880l/2493.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1485248909l/295.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1404810944l/12296.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1406512317l/5326.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1388269517l/1934.jpg" alt=""  /></span>
+                            </li>
+                            <li class="book">
+                                <span><img class="tile__img" src="https://images.gr-assets.com/books/1411852091l/24280.jpg" alt=""  /></span>
+                            </li>
+                        </ul>
+                    </div>   
+                                        
+                </div>    
+            </div>            
+        </div> <!--! end of #container -->        
+
+        <!-- Add your site or application content here -->
+        <script src="js/app.js"></script>
+        <script>  
+            //Kick start app
+            App.startup();
+        </script>        
+    </body>
+</html>
