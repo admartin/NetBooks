@@ -13,12 +13,15 @@
                 $("#bookimg").attr("src", $(this).data('image'));
                 $("#info").html(
                     '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</p>'
-                    + '<p> ' + $(this).data('descr')
+                    + '<q>' + $(this).data('descr') + '</q>'
                 );
                 $('#myModal').modal('show');
             })
         });
         </script>
+        
+        <!-- favicon-->
+        <link rel="icon" href="http://www.iconsdb.com/icons/preview/green/book-xxl.png">
         
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

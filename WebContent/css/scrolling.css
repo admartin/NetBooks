@@ -42,7 +42,7 @@
 }
 
 .category {
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
     width: 100%;
     -webkit-overflow-scrolling: touch;    
@@ -92,4 +92,119 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -webkit-user-select: none;
+}
+
+body,
+html {
+  padding: 0 10px;
+  margin: 0;
+  background: #0e0f11;
+  color: #ecf0f1;
+  font-family: 'Open Sans', sans-serif;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+* {
+  box-sizing: border-box;
+}
+h1,
+p {
+  text-align: center;
+}
+p {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+a:link,
+a:hover,
+a:active,
+a:visited {
+  -webkit-transition: color 150ms;
+  transition: color 150ms;
+  color: #95a5a6;
+  text-decoration: none;
+}
+a:hover {
+  color: #7f8c8d;
+  text-decoration: underline;
+}
+.row {
+  overflow: scroll;
+  width: 100%;
+}
+.categoryRow {
+  -webkit-transition: 450ms -webkit-transform;
+  transition: 450ms -webkit-transform;
+  transition: 450ms transform;
+  transition: 450ms transform, 450ms -webkit-transform;
+  font-size: 0;
+  white-space: nowrap;
+  margin: 5px 0;
+  padding-bottom: 10px;
+}
+.book {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  -webkit-transition: 450ms all;
+  transition: 450ms all;
+  -webkit-transform-origin: center left;
+          transform-origin: center left;
+}
+
+.category:hover {
+    overflow-x: scroll;
+}
+
+.categoryRow:hover {
+  -webkit-transform: translate3d(-62.5px, 0, 0);
+          transform: translate3d(-62.5px, 0, 0);
+}
+.categoryRow:hover .book {
+  opacity: 0.3;
+}
+.categoryRow:hover .book:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  opacity: 1;
+}
+.book:hover ~ .book {
+  -webkit-transform: translate3d(75px, 0, 0);
+          transform: translate3d(75px, 0, 0);
+}
+
+html {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+/* Standardize scrollbars */
+
+::-webkit-scrollbar {
+    font-size: 15pt;
+    width: 16px;
+    color: #888;
+}
+
+::-webkit-scrollbar-thumb {
+    min-height: 4em;
+    min-width: 4em;
+    border-radius: 2em;
+    background-color: #ccc;
+    border: solid 1px #aaa;
+    background-clip: initial;
+    -webkit-box-shadow: inset 0 0 0.4em rgba(0,0,0,0.3);
 }
