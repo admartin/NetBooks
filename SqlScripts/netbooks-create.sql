@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `netbooks`.`Books` (
   `numOut` INT NULL,
   `ebook` TINYINT(1) NULL,
   `link` VARCHAR(100) NULL,
+  `cover` VARCHAR(100) NULL,
   `rating` INT NULL,
   `Authors_id` INT UNSIGNED NOT NULL,
   `Genres_type` VARCHAR(45) NOT NULL,
