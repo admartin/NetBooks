@@ -8,6 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script>
         $(document).ready(function(){
+            //listen for clicks on book images
             $('#main').on('click','li',function(){
                 $("#title").text($(this).data('title'));
                 $("#bookimg").attr("src", $(this).data('image'));
@@ -17,13 +18,16 @@
                 );
                 $('#myModal').modal('show');
             })
+            
+            //confirmation popup for ordering a book
+            
         });
         </script>
         
         <!-- favicon-->
         <link rel="icon" href="http://www.iconsdb.com/icons/preview/green/book-xxl.png">
         
-        <!-- Latest compiled and minified CSS -->
+        <!-- Latest compiled and compressed bootsrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -37,7 +41,7 @@
     <body>  
         
         <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
+        <div id="myModal" class="modal fade" tabindex="-1" data-focus-on="input:first" data-replace="true" style="display: none;"]>
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -55,15 +59,37 @@
                         <img id="bookimg" src="" class="media-object" style="width:150px">
                       </div>
                   </div>
+                  <hr style="margin-top:10px;margin-bottom:10px;" >
+                  <p> Review 1</p>
+                  <p>Review 2</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Order Copy</button>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Read Now</button>
+                <button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button>
+                <button id="read" type="button" class="btn btn-success" data-dismiss="modal">Read Now</button>
               </div>
             </div>
 
           </div>
         </div>
+        
+        <div id="confirmation" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to check out this book?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-success">Order</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+ 
         
         <div id="container">
             
@@ -71,17 +97,17 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">Netbooks</a>
+                        <a class="navbar-brand" href="home.html">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> User
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Your Account</a></li>
-                                <li><a href="#">Settings</a></li>
+                                <li><a href="acccount.html">Your Account</a></li>
+                                <li><a href="settings.html">Settings</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Sign Out</a></li>
+                                <li><a href="index.html">Sign Out</a></li>
                             </ul>
                           </li>
                     </ul>
