@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `netbooks`.`Users` (
   `password` VARCHAR(17) NOT NULL,
   `fname` VARCHAR(45) NULL,
   `lname` VARCHAR(45) NULL,
+  `birthdate` DATE NULL,
   `address` VARCHAR(45) NULL,
   `zipcode` INT NULL,
   `city` VARCHAR(45) NULL,
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `netbooks`.`Authors` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `fname` VARCHAR(45) NULL,
   `lname` VARCHAR(45) NULL,
+  `birthdate` DATE NULL,
   `gender` VARCHAR(1) NULL,
   `bio` VARCHAR(1000) NULL,
   PRIMARY KEY (`id`))
