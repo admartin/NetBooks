@@ -19,8 +19,6 @@
                 $('#myModal').modal('show');
             })
             
-            //confirmation popup for ordering a book
-            
         });
         </script>
         
@@ -60,16 +58,43 @@
                       </div>
                   </div>
                   <hr style="margin-top:10px;margin-bottom:10px;" >
-                  <p> Review 1</p>
-                  <p>Review 2</p>
+                  <div class="well well-sm">Review 1</div>
+                  <div class="well well-sm">Review 2</div>
               </div>
               <div class="modal-footer">
+                <button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>
+                <!--if copy available use this button-->
                 <button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button>
+                <!--otherwise display this button-->
+                <!-- <button id="order" type="button" class="btn btn-success" data-dismiss="modal">Add to Waitlist</button> -->
                 <button id="read" type="button" class="btn btn-success" data-dismiss="modal">Read Now</button>
               </div>
             </div>
 
           </div>
+        </div>
+        
+        <div id="review" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 id="title" class="modal-title">Add A Review</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form role="form">
+                      <div class="form-group">
+                        <textarea class="form-control" id="inputComment" rows="5"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-success">Submit</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </div>
+                </div>
+            </div>
         </div>
         
         <div id="confirmation" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
