@@ -1,5 +1,6 @@
 package netbooks.objectlayer;
 
+import java.util.List;
 
 public class Book {
 	private int id;
@@ -11,11 +12,12 @@ public class Book {
 	private String link;
 	private String cover;
 	private int rating;
-	private int authorID;
+	private Author author;
 	private String genre;
+	private List<Review> reviews;
 
 	public Book(int id, String title, int numCopies, String pubDate, int numOut, boolean ebook, String link,
-			String cover, int rating, int authorID, String genre) {
+			String cover, int rating, Author author, String genre, List<Review> reviews) {
 		this.id = id;
 		this.title = title;
 		this.numCopies = numCopies;
@@ -25,8 +27,9 @@ public class Book {
 		this.link = link;
 		this.cover = cover;
 		this.rating = rating;
-		this.authorID = authorID;
+		this.author = author;
 		this.genre = genre;
+		this.reviews = reviews;
 	}
 
 	/**
@@ -158,15 +161,15 @@ public class Book {
 	/**
 	 * @return the authorID
 	 */
-	public int getauthorID() {
-		return authorID;
+	public Author getAuthor() {
+		return author;
 	}
 
 	/**
 	 * @param authorID the authorID to set
 	 */
-	public void setauthorID(int authorID) {
-		this.authorID = authorID;
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
 	/**
@@ -181,5 +184,13 @@ public class Book {
 	 */
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void addReview(Review review) {
+		reviews.add(review);
 	}
 }
