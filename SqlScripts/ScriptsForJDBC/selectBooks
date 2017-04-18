@@ -14,11 +14,22 @@ where books.title = 'title';
 -- byAuthor (must parse to seperate first from last name and pass those separately) --
 where authors.fname = 'fname' AND authors.lname = 'lname';
 
--- then select reviews --
+-- select reviews --
 select * from reviews
 where reviews.Books_id = -- id of book --
+
 ;
 
--- add reviews to the review list attribute of books--
--- then create book object and add to book list --
--- iterate until all books have been added to list
+
+-- loop structure for getBooksBy method --
+  -- outer loop (iterate over all returned books) --
+    -- inner loop (iterate over all returned reviews for the given book) --
+      create review object from select reviews query 
+      add review object to review list
+    --
+    create Author object using returned values
+    create Book object using returned values and reviews list
+    add book object to book list
+  --
+--
+returns the book list
