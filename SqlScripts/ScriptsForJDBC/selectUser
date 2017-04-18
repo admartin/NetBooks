@@ -1,0 +1,7 @@
+-- select users query used for login (if nothing is returned then theres an invalid username or password)--
+select u.username, u.password
+from users u
+where u.username = 'username' and u.password = 'password';
+
+-- select users query used for profile page (username will be retrieved from session object)
+select * from users where username = 'username';
