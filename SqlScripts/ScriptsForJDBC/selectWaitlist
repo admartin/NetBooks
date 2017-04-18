@@ -1,0 +1,14 @@
+
+-- select wailist for profile page --
+SELECT waitlist.id, waitlist.Books_id, waitlist.Users_username, books.cover
+FROM waitlist
+JOIN books ON waitlist.books_id = books.id
+WHERE  waitlist.Users_username = 'username'
+ORDER BY id;
+
+-- select waitlist for edit waitlist page --
+SELECT *
+FROM waitlist
+JOIN books ON waitlist.books_id = books.id
+WHERE  waitlist.Users_username = 'username'
+ORDER BY waitlist.id;
