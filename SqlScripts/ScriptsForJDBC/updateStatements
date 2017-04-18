@@ -1,0 +1,21 @@
+-- update statements for respective user info changes --
+
+-- email --
+UPDATE users
+SET email = 'email'
+WHERE username = 'username';
+
+-- password --
+UPDATE users
+SET password = 'password'
+WHERE username = 'username';
+
+-- address --
+UPDATE users
+SET address = 'street', city = 'city', state = 'state', zipcode = 'zip'
+WHERE username = 'username';
+
+-- subscription --
+UPDATE users
+SET subscription = (either 0 or 1)
+WHERE username = 'username';
