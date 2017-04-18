@@ -1,0 +1,24 @@
+-- this will be nested query call when calling the getBooksBy method --
+
+-- select books --
+select * from books
+join authors on books.Authors_id= authors.id 
+join genres on books.Genres_type = genres.type
+
+-- byGenre --
+where genres.type =  'genre_type';
+
+-- byTitle
+where books.title = 'title';
+
+-- byAuthor (must parse to seperate first from last name and pass those separately) --
+where authors.fname = 'fname' AND authors.lname = 'lname';
+
+-- then select reviews --
+select * from reviews
+where reviews.Books_id = -- id of book --
+;
+
+-- add reviews to the review list attribute of books--
+-- then create book object and add to book list --
+-- iterate until all books have been added to list
