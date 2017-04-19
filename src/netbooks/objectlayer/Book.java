@@ -14,10 +14,11 @@ public class Book {
 	private int rating;
 	private Author author;
 	private String genre;
+	private String desr;
 	private List<Review> reviews;
 
 	public Book(int id, String title, int numCopies, String pubDate, int numOut, boolean ebook, String link,
-			String cover, int rating, Author author, String genre, List<Review> reviews) {
+			String cover, int rating, Author author, String genre, String desr, List<Review> reviews) {
 		this.id = id;
 		this.title = title;
 		this.numCopies = numCopies;
@@ -29,6 +30,7 @@ public class Book {
 		this.rating = rating;
 		this.author = author;
 		this.genre = genre;
+		this.desr = desr;
 		this.reviews = reviews;
 	}
 
@@ -192,5 +194,13 @@ public class Book {
 
 	public void addReview(Review review) {
 		reviews.add(review);
+	}
+
+	public String getDesr() {
+		return desr;
+	}
+
+	public void setDesr(String desr) {
+		this.desr = desr;
 	}
 }

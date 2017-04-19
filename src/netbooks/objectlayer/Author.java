@@ -4,16 +4,14 @@ package netbooks.objectlayer;
 	
 public class Author {
 	private int id;
-	private String fname;
-	private String lname;
+	private String name;
 	private String birthdate;
 	private String gender;
 	private String bio;
 	
-	public Author(int id, String fname, String lname, String birthdate, String gender, String bio) {
+	public Author(int id, String name, String birthdate, String gender, String bio) {
 		this.id = id;
-		this.fname = fname;
-		this.lname = lname;
+		this.name = name;
 		this.birthdate = birthdate;
 		this.gender = gender;
 		this.bio = bio;
@@ -34,31 +32,17 @@ public class Author {
 	}
 
 	/**
-	 * @return the fname
+	 * @return the name
 	 */
-	public String getFname() {
-		return fname;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param fname the fname to set
+	 * @param name the name to set
 	 */
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
-
-	/**
-	 * @return the lname
-	 */
-	public String getLname() {
-		return lname;
-	}
-
-	/**
-	 * @param lname the lname to set
-	 */
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
