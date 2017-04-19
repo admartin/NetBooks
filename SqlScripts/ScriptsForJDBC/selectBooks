@@ -27,7 +27,7 @@ where reviews.Books_id = -- id of book --
       create review object from select reviews query 
       add review object to review list
     --
-    create Author object using returned values
+    create Author object using returned values (will need to concat fname and lname into a single name variable)
     create Book object using returned values and reviews list
     add book object to book list
   --
