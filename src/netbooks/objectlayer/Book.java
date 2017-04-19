@@ -1,6 +1,7 @@
 package netbooks.objectlayer;
 
 import java.util.List;
+import com.google.gson.Gson;
 
 public class Book {
 	private int id;
@@ -16,6 +17,7 @@ public class Book {
 	private String genre;
 	private String desr;
 	private List<Review> reviews;
+	private String jsonReview;
 
 	public Book(int id, String title, int numCopies, String pubDate, int numOut, boolean ebook, String link,
 			String cover, int rating, Author author, String genre, String desr, List<Review> reviews) {
@@ -32,6 +34,7 @@ public class Book {
 		this.genre = genre;
 		this.desr = desr;
 		this.reviews = reviews;
+		this.jsonReview = convertReviews();
 	}
 
 	/**
@@ -202,5 +205,13 @@ public class Book {
 
 	public void setDesr(String desr) {
 		this.desr = desr;
+	}
+	
+	private String convertReviews()
+	{ 
+		Gson gson = new Gson();
+		String json = gson.toJson(this.reviews);
+		System.out.println(json);
+        return json;
 	}
 }
