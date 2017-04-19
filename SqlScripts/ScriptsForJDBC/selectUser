@@ -1,5 +1,5 @@
 -- select users query used for login (if nothing is returned then theres an invalid username or password)--
-select u.username, u.password
+select u.username, u.password, u.subscription
 from users u
 where u.username = 'username' and u.password = 'password';
 
