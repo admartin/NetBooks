@@ -1,0 +1,7 @@
+
+-- check out a book (must run both) -- 
+insert into checkedout(Books_id, Users_username) values (book_id, username);
+
+UPDATE books
+   SET numOut = numOut - 1
+   WHERE title = 'title';
