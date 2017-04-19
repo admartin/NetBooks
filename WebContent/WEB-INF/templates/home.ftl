@@ -25,6 +25,25 @@
 	                
 	                    '<div class="well well-sm">' + json[i].details + '	</div>'
 	                );
+	            }
+	            
+	            if(($(this).data('copies') - $(this).data('out')) > 0 )
+	            {
+		            $("#footer").append(
+	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button>'
+	                );
+                }
+                else
+                {
+                	$("#footer").append(
+	                    '<button id="order" type="button" class="btn btn-success" data-dismiss="modal">Add to Waitlist</button>'
+	                );
+                }
+                
+                if(($(this).data('ebook'))
+                $("#footer").append(
+	                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
+	                );
                 $('#myModal').modal('show');
             })
             
@@ -72,15 +91,8 @@
                   </div>
               </div>
               <div id="footer" class="modal-footer">
-              
+                <!-- jQuery -->
                 <button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>
-                <!--if premium subscription display this button -->
-                <!--if copy available use this button-->
-                <button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button>
-                <!--otherwise display this button if user has premium subscription-->
-                <!-- <button id="order" type="button" class="btn btn-success" data-dismiss="modal">Add to Waitlist</button> -->
-                <a id="read" href="https://sites.ualberta.ca/~gifford/dorian/dorian.pdf" role="button" class="btn btn-success">Read Now</a>
-              
               </div>
             </div>
 
@@ -172,11 +184,11 @@
                         <ul class="categoryRow clearfix">
                         <#list scifi>
 						<#items as book>	
-                            <li class="book" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
+                            <li class="book" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
                             <#if book.ebook>
                             	data-pdf="${book.link}
                             </#if>
-                                data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#items>
