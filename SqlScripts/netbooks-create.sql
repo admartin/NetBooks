@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS `netbooks`.`Users` ;
 CREATE TABLE IF NOT EXISTS `netbooks`.`Users` (
   `username` VARCHAR(12) NOT NULL,
   `password` VARCHAR(17) NOT NULL,
+  `email` VARCHAR(20) NOT NULL,
   `fname` VARCHAR(45) NULL,
   `lname` VARCHAR(45) NULL,
   `birthdate` DATE NULL,
@@ -76,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `netbooks`.`Books` (
   `link` VARCHAR(100) NULL,
   `cover` VARCHAR(100) NULL,
   `rating` INT NULL,
+  `descr` VARCHAR(1000) NULL,
   `Authors_id` INT UNSIGNED NOT NULL,
   `Genres_type` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`, `Authors_id`, `Genres_type`),
