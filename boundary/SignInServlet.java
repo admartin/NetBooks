@@ -51,9 +51,9 @@ public class SignInServlet extends HttpServlet {
 		if(request.getParameter("login") != null){
 			validateLogin(request,response);
 		}
-		else{
+		/*else{
 			showRegistration(request,response);
-		}
+		}//likely pointless*/
 	}
 	
 	private void validateLogin(HttpServletRequest request, HttpServletResponse response){
@@ -132,11 +132,13 @@ public class SignInServlet extends HttpServlet {
 		processor.runTemp(templateName, root, request, response);
 	}
 	
-	public void showRegistration(HttpServletRequest request,HttpServletResponse response){
+	/*public void showRegistration(HttpServletRequest request,HttpServletResponse response){
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "register.ftl";
 		processor.runTemp(templateName,root,request,response);
-	}
+	}//this is likely pointless, just go to register.html. there was an issue with register.html not being able to see the servlets,
+	getting a not found error when clicking the register button, and i was going to test whether an .ftl file would be able to,
+	but i think this may be an issue on my end...*/
 
 }
