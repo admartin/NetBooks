@@ -36,7 +36,6 @@
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="profile.html">Your Account</a></li>
-                                <li><a href="settings.html">Settings</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
