@@ -25,7 +25,14 @@ public class UserPersistImpl {
 	public static void createUser(User user) {
 		String insertSql = "insert into netbooks.users (username, password, email, fname, lname, birthdate, address, city, state, zipcode, subscription) values (?,?,?,?,?,?,?,?,?,?,?)";            
 		PreparedStatement stmt;
-
+		
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		adde
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
 
