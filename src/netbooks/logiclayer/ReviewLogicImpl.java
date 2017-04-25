@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.logiclayer;
 
 import netbooks.objectlayer.Review;
 import netbooks.objectlayer.User;
