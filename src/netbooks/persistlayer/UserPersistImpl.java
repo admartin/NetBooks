@@ -3,7 +3,8 @@ package netbooks.persist;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.mysql.jdbc.Connection;
+
+import java.sql.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import netbooks.objectlayer.User;
@@ -23,6 +24,16 @@ public class UserPersistImpl {
 	}
 
 	public static void createUser(User user) {
+		
+		try {
+
+			try {
+				conn = DbUtils.connect();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		String insertSql = "insert into netbooks.users (username, password, email, fname, lname, birthdate, address, city, state, zipcode, subscription) values (?,?,?,?,?,?,?,?,?,?,?)";            
 		PreparedStatement stmt;
 
