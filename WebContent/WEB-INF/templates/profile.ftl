@@ -35,7 +35,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Your Account</a></li>
+                                <li><a href="localhost:8080/Netbooks/Account">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
@@ -71,20 +71,21 @@
               <div class="row">
                   <div class="col-md-2 col-md-offset-2">${username}</div>
               </div>
+	      <form action="Settings" method="post">
               <div class="row">
                 <div class="col-md-2 col-md-offset-2">${email}</div>
-                <div class="col-md-2 pull-right text-right"><a href="email.html">Change Email</a></div>
+                <div class="col-md-2 pull-right text-right"><a href="Settings?opt=email">Change Email</a></div>
                </div>
                <div class="row">
                   <div class="col-md-2 col-md-offset-2">*****</div>
-                   <div class="col-md-2 pull-right text-right"><a href="password.html">Change Password</a></div>
+                   <div class="col-md-2 pull-right text-right"><a href="Settings?opt=password">Change Password</a></div>
                 </div>
                 <div class="row">
                 <div class="col-md-offset-2"><hr style="margin-top:10px;margin-bottom:10px;" ></div>
                 </div>
                 <div class="row">
                   <div class="col-md-4 col-md-offset-2">${address}</div>
-                   <div class="col-md-3 pull-right text-right"><a href="address.html">Change Billing Address</a></div>
+                   <div class="col-md-3 pull-right text-right"><a href="Settings?opt=address">Change Billing Address</a></div>
                 </div>
               <div class="row">
                 <hr style="margin-top:10px;margin-bottom:10px;" >
@@ -93,7 +94,7 @@
                   <div class="col-md-4">
                     <h4>Plan</h4>
                     </div>
-                  <div class="col-md-2 pull-right text-right"><a href="password.html">Change Plan</a></div>
+                  <div class="col-md-2 pull-right text-right"><a href="Settings?opt=subscription">Change Plan</a></div>
               </div>
               <div class="row">
                 <div class="col-md-2 col-md-offset-2">Ebook <span class="glyphicon glyphicon-ok " style="color:green"></span></div>
@@ -111,8 +112,9 @@
                     <div class="col-md-4">
                     <h4>Your Wailisted Books</h4>
                     </div>
-                  <div class="col-md-2 pull-right text-right"><a href="password.html">Edit Waitlist</a></div>
+                  <div class="col-md-2 pull-right text-right"><a href="Settings?opt=waitlist">Edit Waitlist</a></div>
                 </div>
+		</form>
                 <#if waitlist?has_content>
                 <div class="row">
                     <div class="category">
