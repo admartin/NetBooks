@@ -35,7 +35,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> $(username)
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html?Account">Your Account</a></li>
+                                <li><a href="localhost:8080/Netbooks/Account">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
