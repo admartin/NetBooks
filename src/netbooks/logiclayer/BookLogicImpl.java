@@ -20,9 +20,9 @@ public class BookLogicImpl {
 		return BookPersistImpl.getBooksByAuthor(author);
 	}
 	
-	public static void checkOutBook(String username)
+	public static void checkOutBook(String username, String title)
 	{
-		BookPersistImpl.checkOutBook(username);
+		BookPersistImpl.checkOutBook(username, title);
 	}
 	
 	public static List<Book> getWaitlistProfile(String username)
