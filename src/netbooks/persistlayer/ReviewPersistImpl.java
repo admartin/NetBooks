@@ -22,6 +22,12 @@ public class ReviewPersistImpl {
 		PreparedStatement stmt;
 
 		try {
+			try {
+				conn = DbUtils.connect();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
 
 
@@ -52,6 +58,13 @@ public class ReviewPersistImpl {
 		String insertSql = "select * from reviews where reviews.Books_id = " + bookId;            
 		PreparedStatement stmt;
 		try {
+
+			try {
+				conn = DbUtils.connect();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getResultSet();
