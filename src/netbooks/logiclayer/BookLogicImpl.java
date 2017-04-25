@@ -1,5 +1,6 @@
 package netbooks.logiclayer;
 
+import netbooks.persist.*;
 import netbooks.objectlayer.Book;
 import java.util.List;
 
