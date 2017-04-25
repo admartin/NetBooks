@@ -1,6 +1,7 @@
 package netbooks.boundary;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
+import netbooks.logiclayer.UserLogicImpl;
+import netbooks.objectlayer.User;
 
 /**
  * Servlet implementation class SignInServlet
@@ -28,7 +31,6 @@ public class SignInServlet extends HttpServlet {
      */
     public SignInServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     public void init(ServletConfig config) throws ServletException {
@@ -48,12 +50,8 @@ public class SignInServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("login") != null){
 			validateLogin(request,response);
-		}
-		else{
-			showRegistration(request,response);
-		}
+
 	}
 	
 	private void validateLogin(HttpServletRequest request, HttpServletResponse response){
@@ -69,6 +67,13 @@ public class SignInServlet extends HttpServlet {
 			}//create new session if a user was logged in prior
 			synchronized(sess){
 			//check if pass is valid
+			List<User> ulist = UserLogicImpl.getUserForLogin(username);	
+			if(ulist.size() != 1){
+				//username doesn't exist, err
+			}
+			else{
+				
+			}
 			/*
 			 * if returned userlist from getUser sql call returned a user 
 			 * and if returned password from userlist equals the provided password
@@ -82,17 +87,6 @@ public class SignInServlet extends HttpServlet {
             		sess.setAttribute("premium", true);
             }
 			 */
-			}
-			String err = "";
-			if(pass){
-				showHomePage(request,response);
-			}
-			else{
-				response.setContentType("text/html");
-				response.getWriter().write("err");
-				//use ajax to get this. in the js file, have an if else for if string is empty
-				//if string is err do the alert
-				//there's probably a smoother way to do this but i'm bad
 			}
 			
 		}

@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 import netbooks.objectlayer.Book;
 import netbooks.objectlayer.Review;

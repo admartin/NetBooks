@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="regsuccess.js"></script>
         
         <!-- Navbar color override -->
         <link rel="stylesheet" href="css/bootstrap.css">
@@ -38,7 +39,7 @@
                 <h3 class="panel-title">Sign Up</h3>
             </div>
             <div class="panel-body">
-                <form action="Register" method="post">
+                <form role="form" action="Register" method="post">
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
@@ -52,7 +53,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
-                                <input placeholder="Birthdate" name="birth_date" class="form-control" type="text" id="date">
+                                <input placeholder="Birthdate" name="birth_date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                             </div>
                         </div>
                     </div>
@@ -152,7 +153,7 @@
                     <div class="input-group">
                       <div style="margin-top: 0px;">
                         <label class="radio-inline">
-                          <input type="radio" name="optradio">Base Subscription
+                          <input type="radio" value="base" name="optradio">Base Subscription
                         </label>
                         <label class="radio-inline">
                           <input type="radio" name="optradio">Premium Subscription
@@ -160,7 +161,8 @@
                       </div>
                     </div>
                     <hr style="margin-top:10px;margin-bottom:10px;" >
-                    <button type="submit" class="btn btn-success">Register</button>
+                    Username taken!<br/>
+                    <button type="submit" id="reg" class="btn btn-success">Register</button>
                     <a href="index.html" role=button class="btn btn-danger">Cancel</a>
                 </form>
             </div>

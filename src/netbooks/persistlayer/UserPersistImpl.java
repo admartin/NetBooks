@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -24,13 +24,12 @@ public class UserPersistImpl {
 	}
 
 	public static void createUser(User user) {
-		
-		try {
-			conn = DbUtils.connect();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+			try {
+				conn = DbUtils.connect();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		
 		String insertSql = "insert into netbooks.users (username, password, email, fname, lname, birthdate, address, city, state, zipcode, subscription) values (?,?,?,?,?,?,?,?,?,?,?)";            
 		PreparedStatement stmt;
@@ -60,6 +59,8 @@ public class UserPersistImpl {
 				stmt.setInt(10, user.getZipcode());
 			if(user.getSubscription() != -1)
 				stmt.setInt(11, user.getSubscription());
+			
+			System.out.println(stmt.toString());
 			
 			stmt.executeUpdate();
 

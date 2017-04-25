@@ -1,6 +1,7 @@
 package netbooks.logiclayer;
 
 import netbooks.objectlayer.Review;
+import netbooks.persistlayer.ReviewPersistImpl;
 import netbooks.objectlayer.User;
 
 import java.util.List;

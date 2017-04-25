@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

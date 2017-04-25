@@ -6,6 +6,7 @@ public class User {
 	private String password;
 	private String fname;
 	private String lname;
+	private String email;
 	private String birthdate;
 	private String address;
 	private String city;
@@ -17,7 +18,8 @@ public class User {
 	private Book[] booksRead;
 	
 	public User(int id, String username, String password, String fname, String lname, String birthdate, String address, 
-			String city, String state, int zipcode, int cardNum, int subscription, Book[] checkedOut, Book[] booksRead){
+			String city, String state, int zipcode, int cardNum, int subscription, Book[] checkedOut, Book[] booksRead,
+			String email){
 		this.username = username;
 		this.password = password;
 		this.fname = fname;
@@ -31,6 +33,7 @@ public class User {
 		this.subscription = subscription;
 		this.checkedOut = checkedOut;
 		this.booksRead = booksRead;
+		this.email = email;
 	}
 
 	/**
@@ -223,4 +226,11 @@ public class User {
 		this.id = id;
 	}
 	
+	public String getEmail(){
+		return email;
+	}
+	
+	public void setEmail(String email){
+		this.email = email;
+	}
 }

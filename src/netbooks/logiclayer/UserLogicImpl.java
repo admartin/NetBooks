@@ -1,7 +1,7 @@
 package netbooks.logiclayer;
 
 import netbooks.objectlayer.User;
-import netbooks.persist.*;
+import netbooks.persistlayer.UserPersistImpl;
 import java.util.List;
 
 public class UserLogicImpl {
@@ -18,10 +18,10 @@ public class UserLogicImpl {
 	
 	
 	public static void createUser(String username, String password, String fname, String lname, String birthdate, String address, 
-			String city, String state, int zipcode, int subscription)
+			String city, String state, int zipcode, int subscription,String email)
 	{
 		User user = new User(-1, username, password, fname, lname, birthdate, address, 
-			city, state, zipcode, -1, subscription, null, null);
+			city, state, zipcode, -1, subscription, null, null,email);
 		UserPersistImpl.createUser(user);
 	}
 	

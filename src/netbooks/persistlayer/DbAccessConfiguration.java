@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 
 public abstract class DbAccessConfiguration {
@@ -9,6 +9,6 @@ public abstract class DbAccessConfiguration {
 	
 	static final String DB_CONNECTION_USERNAME = "root";
 	
-	static final String DB_CONNECTION_PASSWORD = "password"; //your password
+	static final String DB_CONNECTION_PASSWORD = "^What4said"; //your password
 
 }
