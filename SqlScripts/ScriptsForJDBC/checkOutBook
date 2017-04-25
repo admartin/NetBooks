@@ -4,4 +4,4 @@ insert into checkedout(Books_id, Users_username) values (book_id, username);
 
 UPDATE books
    SET numOut = numOut - 1
-   WHERE book_id = 'book_id';
+   WHERE title = 'title';
