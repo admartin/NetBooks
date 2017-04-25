@@ -1,10 +1,12 @@
-package netbooks.logiclayer;
+package netbooks.persist;
 
 import netbooks.objectlayer.Review;
 import netbooks.objectlayer.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -42,5 +44,11 @@ public class ReviewPersistImpl {
 			System.out.println( "Review.save: failed to save a Review: " + e );
 		}
 	}
+	
+	public static List<Review> selectReviewsById(int bookId) {
+		 List<Review> reviews = new ArrayList<Review>();
+		// TODO Auto-generated method stub
+		return reviews;
+	} 
 
 }
