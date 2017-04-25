@@ -1,9 +1,11 @@
 package netbooks.persist;
 
+import netbooks.objectlayer.Book;
 import netbooks.objectlayer.Review;
 import netbooks.objectlayer.User;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +48,39 @@ public class ReviewPersistImpl {
 	}
 	
 	public static List<Review> selectReviewsById(int bookId) {
-		 List<Review> reviews = new ArrayList<Review>();
-		// TODO Auto-generated method stub
+		List<Review> reviews = new ArrayList<Review>();
+		String insertSql = "select * from reviews where reviews.Books_id = " + bookId;            
+		PreparedStatement stmt;
+		try {
+			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getResultSet();
+			int id;
+			int rating;
+			String details;
+			int bookID;
+			String username;
+			
+			while( rs.next() ) {
+				id = rs.getInt(1);
+                rating = rs.getInt(2);
+                details = rs.getString(3);
+                bookId = rs.getInt(4);
+                username = rs.getString(5);
+                
+                User temp = new User(-1, username, null, null, null, null, null, null, null, -1, -1, -1, null, null);
+                Review review = new Review(id, rating, details, bookId, temp);
+                
+                reviews.add(review);
+			}
+			
+			return reviews;
+		}
+		catch( SQLException e ) {
+			e.printStackTrace();
+			System.out.println( "Review.select: failed to select reviews " + e );
+		}
+		
 		return reviews;
 	} 
 
