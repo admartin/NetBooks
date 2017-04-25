@@ -1,6 +1,7 @@
 package netbooks.objectlayer;
 
 public class User {
+	private int id;
 	private String username;
 	private String password;
 	private String fname;
@@ -15,7 +16,7 @@ public class User {
 	private Book[] checkedOut;
 	private Book[] booksRead;
 	
-	public User(String username, String password, String fname, String lname, String birthdate, String address, 
+	public User(int id, String username, String password, String fname, String lname, String birthdate, String address, 
 			String city, String state, int zipcode, int cardNum, int subscription, Book[] checkedOut, Book[] booksRead){
 		this.username = username;
 		this.password = password;
@@ -212,6 +213,14 @@ public class User {
 	 */
 	public void setWaitlist(Book[] booksRead) {
 		this.booksRead = booksRead;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }
