@@ -1,6 +1,7 @@
 package netbooks.logiclayer;
 
 import netbooks.objectlayer.User;
+import netbooks.persist.*;
 import java.util.List;
 
 public class UserLogicImpl {
@@ -22,11 +23,6 @@ public class UserLogicImpl {
 		User user = new User(-1, username, password, fname, lname, birthdate, address, 
 			city, state, zipcode, -1, subscription, null, null);
 		UserPersistImpl.createUser(user);
-	}
-	
-	public static void updateEmail(String username, String email)
-	{
-		UserPersistImpl.updateEmail(username, email);
 	}
 	
 	public static void updateEmail(String username, String email)
