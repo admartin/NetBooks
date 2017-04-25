@@ -1,17 +1,46 @@
-package netbooks.persist;
+package netbooks.logiclayer;
 
 import netbooks.objectlayer.Review;
 import netbooks.objectlayer.User;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class ReviewPersistImpl {
 
-	public static void createReview(int id, int rating, String details, int bookID, String username)
+    private static Connection  conn = null;
+    
+	public static void createReview(Review review)
 	{
-		User user = UserLogicImpl.getFullUserInfo(username).get(0);
-		Review review = new Review(-1, rating, details, bookID, user);
-		ReviewPersistImpl.createReview(review);
+		String insertSql = "insert into netbooks.reviews (rating, details, books_id, users_username) values (?,?,?,?)";            
+		PreparedStatement stmt;
+
+		try {
+			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
+
+
+
+			if( review.getRating() != -1 ) // ballot is unique, so it is sufficient to get a ballot
+				stmt.setInt(1, review.getRating());
+
+			if(review.getDetails() != null ) // ballot is unique, so it is sufficient to get a ballot
+				stmt.setString(2, review.getDetails());
+		
+			if(review.getBookID() != -1)
+				stmt.setInt(3, review.getBookID());
+			
+			if(review.getUser().getUsername() != null)
+				stmt.setString(4, review.getUser().getUsername());
+			
+			stmt.executeUpdate();
+
+		}
+		catch( SQLException e ) {
+			e.printStackTrace();
+			System.out.println( "Review.save: failed to save a Review: " + e );
+		}
 	}
-	
+
 }
