@@ -14,6 +14,12 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 
+import netbooks.objectlayer.User;
+import netbooks.logiclayer.UserLogicImpl;
+import netbooks.logiclayer.BookLogicImpl;
+
+import java.util.List;
+
 /**
  * Servlet implementation class Account
  */
@@ -27,7 +33,6 @@ public class Account extends HttpServlet {
      */
     public Account() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public void init(ServletConfig config) throws ServletException {
@@ -50,19 +55,23 @@ public class Account extends HttpServlet {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String user = (String)sess.getAttribute("username");
+		boolean subscrip;
+		
 		root.put("username", user);
-		//root.put("email",UserLogicImpl.selectEmail(user));
-		//root.put("address",UserLogicImpl.selectAddress(user));
-		//root.put("waitlist",UserLogicImpl.selectWaitlist(user));
-		//String subscrip;
-		/*if(UserLogicImpl.selectSubscription(user) == 1){
-			subscrip = "Book-To-Door";
+		User userob = UserLogicImpl.getFullUserInfo(user).get(0);
+		root.put("email",userob.getEmail());
+		String address = userob.getAddress() + "<br/>" + userob.getCity() + ", " + userob.getState() + " " + userob.getZipcode();
+		root.put("address",address);
+		root.put("waitlist",BookLogicImpl.getWaitlistProfile(userob.getUsername()));
+		
+		if(userob.getSubscription() == 1){
+			subscrip = true;
 	    }
 		else{
-			subscrip = "E-book";
-		}*/
-		//root.put("subscription",subscrip);
-		//etc...
+			subscrip = false;
+		}
+
+		root.put("subscription",subscrip);
 		String templateName = "account.ftl";
 		processor.runTemp(templateName,root,request,response);
 	}

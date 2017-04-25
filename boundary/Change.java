@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
+import netbooks.logiclayer.BookLogicImpl;
+import netbooks.logiclayer.UserLogicImpl;
 
 /**
  * Servlet implementation class Change
@@ -46,37 +48,30 @@ public class Change extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//in account.ftl file, put Change as the href for the waitlist link
-		//which will direct to this servlet
-		//generate ftl to edit waitlist
-		//on the html pages to change password, etc, the forms should have action=Change
-		//i think it's ok if those pages stay html but not 100% sure
-		//buttons have corresponding names
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		HttpSession sess = request.getSession();
 		String user = (String)sess.getAttribute("username");
 		if(request.getParameter("passwordbutton")!=null){
-			//UserLogicImpl.setPassword(user,request.getParameter("password"));
+			UserLogicImpl.updatePassword(user,request.getParameter("password"));
 		}
 		else if(request.getParameter("addressbutton")!=null){
 			String address = request.getParameter("address");
 			String city = request.getParameter("city");
 			String state = request.getParameter("state");
-			String zip = request.getParameter("zip");
-			//UserLogicImpl.setAddress(user,address);
-			//etc..
+			int zip = Integer.parseInt(request.getParameter("zip"));
+			UserLogicImpl.updateAddress(user,address,city,state,zip);
 		}
 		else if(request.getParameter("subscriptionbutton")!=null){
 			//???
 		}
 		else if(request.getParameter("emailbutton")!=null){
-			//UserLogicImpl.setEmail(user,request.getParameter("email"));
+			UserLogicImpl.updateEmail(user,request.getParameter("email"));
 		}
 		else{
 			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 			SimpleHash root = new SimpleHash(db.build());
 			String templateName = "waitlist.ftl";
-			//get waitlist (List of Books) and put into root
+			root.put("waitlist",BookLogicImpl.getWaitlistProfile(user));
 			processor.runTemp(templateName,root,request,response);
 		}
 		
