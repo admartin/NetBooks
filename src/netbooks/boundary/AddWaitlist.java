@@ -61,7 +61,7 @@ public class AddWaitlist extends HttpServlet {
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "home.ftl";
 		root.put("username", sess.getAttribute("username") );
-		if((Integer)sess.getAttribute("premium") == 1){
+		if((Boolean)sess.getAttribute("premium")){
 			root.put("premium",true);
 		}
 		else{

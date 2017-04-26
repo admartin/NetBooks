@@ -19,6 +19,9 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
+import netbooks.logiclayer.BookLogicImpl;
+import netbooks.objectlayer.Book;
+
 @WebServlet("/Search")
 public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -63,35 +66,47 @@ public class Search extends HttpServlet {
 		SimpleHash root = new SimpleHash(df.build());
 
 		HttpSession sess = request.getSession(); 
-		//root.put("username", sess.getAttribute("username") );
+		root.put("username", (String)sess.getAttribute("username"));
+		root.put("premium", (Boolean)sess.getAttribute("premium"));
 
-		//assign search value to string
+		String search = request.getParameter("search");
 		
 		//get books by searched value
 		//first try title
-			//List<Books> books = BookLogicImpl.selectBooksByTitle(search);
-		//if returned list < 1 try author
-			//List<Books> books = BookLogicImpl.selectBooksByAuthor(search);
+		List<Book> byTitle = BookLogicImpl.getBooksByTitle(search);
+		List<Book> byAuthor = BookLogicImpl.getBooksByAuthor(search);
 		
-		//if books != null 
-		//root.put("books", books );
+		byTitle.addAll(byAuthor);
 		
-		//else display search error page
+		if(byTitle.size() > 0){ 
+			root.put("books",byTitle);
+			try {
+				String templateName = "search.ftl";
+				template = cfg.getTemplate(templateName );
+				response.setContentType("text/html");
+				Writer out = response.getWriter();
+				template.process(root, out);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (TemplateException e) {
+				e.printStackTrace();
+			}
+		}//if results
+		else{
+			try {
+				String templateName = "error.ftl";
+				template = cfg.getTemplate(templateName );
+				response.setContentType("text/html");
+				Writer out = response.getWriter();
+				root.put("error", "No results found. :(");
+				template.process(root, out);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (TemplateException e) {
+				e.printStackTrace();
+			}
+		}//else go to err page
 		
-		//place variable detailing whether or not a user has premium
-		//root.put("premium", sess.getAttribute("premium") );
-		
-		try {
-			String templateName = "home.ftl";
-			template = cfg.getTemplate(templateName );
-			response.setContentType("text/html");
-			Writer out = response.getWriter();
-			template.process(root, out);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
