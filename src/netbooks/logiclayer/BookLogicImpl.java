@@ -2,7 +2,7 @@ package netbooks.logiclayer;
 
 import netbooks.objectlayer.Book;
 import java.util.List;
-import netbooks.persistlayer.BookPersistImpl;
+import netbooks.persist.BookPersistImpl;
 
 public class BookLogicImpl {
 	
@@ -21,9 +21,9 @@ public class BookLogicImpl {
 		return BookPersistImpl.getBooksByAuthor(author);
 	}
 	
-	public static void checkOutBook(String username)
+	public static void checkOutBook(String username, int book_id)
 	{
-		BookPersistImpl.checkOutBook(username);
+		BookPersistImpl.checkOutBook(username, book_id);
 	}
 	
 	public static List<Book> getWaitlistProfile(String username)
