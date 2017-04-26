@@ -1,7 +1,7 @@
 package netbooks.logiclayer;
 
 import netbooks.objectlayer.User;
-import netbooks.persistlayer.UserPersistImpl;
+import netbooks.persist.UserPersistImpl;
 import java.util.List;
 
 public class UserLogicImpl {
@@ -20,7 +20,7 @@ public class UserLogicImpl {
 	public static void createUser(String username, String password, String fname, String lname, String birthdate, String address, 
 			String city, String state, int zipcode, int subscription,String email)
 	{
-		User user = new User(-1, username, password, fname, lname, birthdate, address, 
+		User user = new User(username, password, fname, lname, birthdate, address, 
 			city, state, zipcode, -1, subscription, null, null,email);
 		UserPersistImpl.createUser(user);
 	}
@@ -45,8 +45,8 @@ public class UserLogicImpl {
 		UserPersistImpl.updateSub(username, sub);
 	}
 	
-	public static void addWaitlistEntry(String username, String title)
+	public static void addWaitlistEntry(String username, int book_id)
 	{
-		UserPersistImpl.addWaitlistEntry(username, title);
+		UserPersistImpl.addWaitlistEntry(username, book_id);
 	}
 }
