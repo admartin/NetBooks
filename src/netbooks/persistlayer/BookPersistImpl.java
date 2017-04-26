@@ -220,13 +220,13 @@ public class BookPersistImpl {
 		}
 		
 		//UPDATE
-		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE title = ?";
+		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE id = ?";
 		PreparedStatement stmt2;
 		
 		try {
 			stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
 			
-			stmt2.setString(2, title);
+			stmt2.setInt(1, bookId);
 			
 			stmt2.executeUpdate();
 		} catch(SQLException e) {
