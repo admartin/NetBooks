@@ -35,7 +35,7 @@ public class UserPersistImpl {
 	    
 	    try {
 		stmt = (PreparedStatement) conn.prepareStatement(sql);
-		stmt.setString(1, username);
+		stmt.setString(1, username);                          //may be different index other than 1
 		int assign = stmt.executeUpdate();
 		if(assign != -1) {
 		    ResultSet rs = stmt.getResultSet();
@@ -82,7 +82,7 @@ public class UserPersistImpl {
 	    
 	    try {
 		stmt = (PreparedStatement) conn.prepareStatement(sql);
-		stmt.setString(1, username);
+		stmt.setString(1, username);                               //may be other index other than 1
 		int assign = stmt.executeUpdate();
 		if(assign != -1) {
 		    ResultSet rs = stmt.getResultSet();
