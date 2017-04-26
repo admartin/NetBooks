@@ -58,8 +58,58 @@ public class UserPersistImpl {
 	}
 
 	public static List<User> getFullUserInfo(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	    
+	    try {
+		conn = DbUtils.connect();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	    
+	    List<User> userList = new ArrayList<User>();
+	    Book booksCheckedOut[] = null;                       //not sure how to retrieve these books
+	    Book booksRead[] = null;
+	    
+	    
+	    String sql = "SELECT * FROM users u WHERE u.username = ?";
+	    PreparedStatement stmt = null;
+	    
+	    StringBuffer query = new StringBuffer(100);
+	    StringBuffer condition = new StringBuffer(100);
+	    
+	    condition.setLength(0);
+	    
+	    query.append(sql);
+	    
+	    try {
+		stmt = (PreparedStatement) conn.prepareStatement(sql);
+		stmt.setString(1, username);
+		int assign = stmt.executeUpdate();
+		if(assign != -1) {
+		    ResultSet rs = stmt.getResultSet();
+		    int id = rs.getInt(1);
+		    String user = rs.getString(2);
+		    String password = rs.getString(3);
+		    String fname = rs.getString(4);
+		    String lname = rs.getString(5); //some of these are probably off, I don't think my 
+		    String email = rs.getString(6);//database is up to date with correct columns
+		    String birthdate = rs.getString(7);
+		    String address = rs.getString(8);
+		    String city = rs.getString(9);
+		    String state = rs.getString(10);
+		    int zipcode = rs.getInt(11);
+		    int cardNum = rs.getInt(12);
+		    int subscription = rs.getInt(13);
+		    
+		    User user1 = new User(id, username, password, fname, lname, birthdate, address, city, state, zipcode, cardNum, subscription, booksCheckedOut, booksRead, email);
+		    userList.add(user1);
+		}
+		
+	    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	    
+	    return userList;
 	}
 
 	public static void createUser(User user) {
