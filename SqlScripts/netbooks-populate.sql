@@ -77,4 +77,12 @@ insert into users values ('user9', 'pAssword9', 'user9@gmail.com', 'Jake', 'Doe'
 insert into users values ('basic_user', 'pAssword10', 'user10@gmail.com', 'Jay', 'Doe', '1969-04-29', '132 Address Lane', '30614', 'Watkinsville', 'GA', '1');
 
 -- REVIEWS --
-
+insert into reviews values ('1', '8', 'This book was gripping until the very end. The chapters with heavy dialogue were such a BORE though. I''m the kind of guy who hates talking and only cares about the action in a book.', '21', 'user1');
+insert into reviews values ('2', '4', 'The excitement in this book was not at all worth the massive buildup and back and forth between characters. I do not recommend this book. If it is required for you to read, I am sorry.', '1', 'user2');
+insert into reviews values ('3', '3', 'Was not about the magician. Very disappointed.', '8', 'user3');
+insert into reviews values ('4', '5', 'Did not have Emma Stone. Eh, at best.', '22', 'user4');
+insert into reviews values ('5', '9', 'Embarrassing screamed out loud in the library. Really good hoor book!', '14', 'user5');
+insert into reviews values ('6', '10', 'Really liked the caterpillar. The rabbit was cool too; I hope he made his date.', '9', 'user6');
+insert into reviews values ('7', '3', 'SPOILER ALERT: it was bacteria. Can you believe that? Bacteria killed an entire race of aliens invading Earth.', '17', 'user7');
+insert into reviews values ('8', '9', 'Ohhhh Hamlet, Hamlet, Hamlet. What more can I say?', '11', 'user8');
+insert into reviews values ('9', '10', 'Homer is truly the master of epics. So much of his story is still relevant in this day and age.', '10', 'user9');
