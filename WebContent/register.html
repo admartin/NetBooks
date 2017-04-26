@@ -38,7 +38,7 @@
                 <h3 class="panel-title">Sign Up</h3>
             </div>
             <div class="panel-body">
-                <form action="Register" method="post">
+                <form role="form" action="Register" method="get">
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-group">
-                                <input placeholder="Birthdate" name="birth_date" class="form-control" type="text" id="date">
+                                <input placeholder="Birthdate" name="birth_date" class="form-control" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" title="YYYY-MM-DD" required type="text" id="date">
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                 </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="display_name" id="display_name" class="form-control " placeholder="Username" pattern=".{6,}" title="Six or more characters" required>
+                        <input type="text" name="display_name" id="display_name" class="form-control " placeholder="Username" pattern=".{6,12}" title="Must be 6-12 characters long" required>
                     </div>
                     <div class="form-group">
                         <input type="email" name="email" id="email" class="form-control " placeholder="Email Address" required>
