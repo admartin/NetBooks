@@ -16,12 +16,6 @@ public class ReviewPersistImpl {
 
 	private static Connection  conn = null;
 
-	public static void main(String[] args)
-	{
-		List<Review> reviews = ReviewPersistImpl.selectReviewsById(21);
-		System.out.println(reviews.get(0).getDetails());
-	}
-	
 	public static void createReview(Review review)
 	{
 		String insertSql = "insert into netbooks.reviews (rating, details, books_id, users_username) values (?,?,?,?)";            
@@ -87,7 +81,7 @@ public class ReviewPersistImpl {
 					bookId = rs.getInt(4);
 					username = rs.getString(5);
 
-					User temp = new User(-1, username, null, null, null, null, null, null, null, -1, -1, -1, null, null, null);
+					User temp = new User(username, null, null, null, null, null, null, null, -1, -1, -1, null, null, null);
 					Review review = new Review(id, rating, details, bookId, temp);
 
 					reviews.add(review);
