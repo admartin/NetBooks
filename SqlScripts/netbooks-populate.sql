@@ -65,16 +65,16 @@ insert into netbooks.Books (title, numCopies, pubDate, numOut, ebook, link, cove
 insert into netbooks.Books (title, numCopies, pubDate, numOut, ebook, link, cover, rating, descr, Authors_id, Genres_type) values ('The Scarlett Letter', '2', '1850-01-01', '0', '1', 'http://www.gutenberg.org/cache/epub/33/pg33-images.html', 'http://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1328118276i/6193937._UY200_.jpg', '6', '"Set in the harsh Puritan community of seventeenth-century Boston, this tale of an adulterous entanglement that results in an illegitimate birth reveals Nathaniel Hawthorne''s concerns with the tension between the public and the private selves. Publicly disgraced and ostracized, Hester Prynne draws on her inner strength and certainty of spirit to emerge as the first true heroine of American fiction. Arthur Dimmesdale, trapped by the rules of society, stands as a classic study of a self divided." -GoodReads', '12', 'Romance');
 
 -- USERS --
-insert into users values ('user1', 'pAssword1', 'user1@gmail.com', 'John', 'Doe', '1969-04-20', '123 Address Lane', '30605', 'Athens', 'GA', '2');
-insert into users values ('user2', 'pAssword2', 'user2@gmail.com', 'Jane', 'Doe', '1969-04-21', '124 Address Lane', '30606', 'Athens', 'GA', '2');
-insert into users values ('user3', 'pAssword3', 'user3@gmail.com', 'Johnny', 'Doe', '1969-04-22', '125 Address Lane', '30607', 'Athens', 'GA', '2');
-insert into users values ('user4', 'pAssword4', 'user4@gmail.com', 'Jack', 'Doe', '1969-04-23', '126 Address Lane', '30608', 'Athens', 'GA', '2');
-insert into users values ('user5', 'pAssword5', 'user5@gmail.com', 'Jacky', 'Doe', '1969-04-24', '127 Address Lane', '30609', 'Athens', 'GA', '2');
-insert into users values ('user6', 'pAssword6', 'user6@gmail.com', 'Janet', 'Doe', '1969-04-25', '128 Address Lane', '30610', 'Watkinsville', 'GA', '2');
-insert into users values ('user7', 'pAssword7', 'user7@gmail.com', 'Joan', 'Doe', '1969-04-26', '129 Address Lane', '30611', 'Watkinsville', 'GA', '2');
-insert into users values ('user8', 'pAssword8', 'user8@gmail.com', 'Joanie', 'Doe', '1969-04-27', '130 Address Lane', '30612', 'Watkinsville', 'GA', '2');
-insert into users values ('user9', 'pAssword9', 'user9@gmail.com', 'Jake', 'Doe', '1969-04-28', '131 Address Lane', '30613', 'Watkinsville', 'GA', '2');
-insert into users values ('basic_user', 'pAssword10', 'user10@gmail.com', 'Jay', 'Doe', '1969-04-29', '132 Address Lane', '30614', 'Watkinsville', 'GA', '1');
+insert into users values ('user1', 'pAssword1', 'user1@gmail.com', 'John', 'Doe', '1969-04-20', '123 Address Lane', '30605', 'Athens', 'GA', '1');
+insert into users values ('user2', 'pAssword2', 'user2@gmail.com', 'Jane', 'Doe', '1969-04-21', '124 Address Lane', '30606', 'Athens', 'GA', '1');
+insert into users values ('user3', 'pAssword3', 'user3@gmail.com', 'Johnny', 'Doe', '1969-04-22', '125 Address Lane', '30607', 'Athens', 'GA', '1');
+insert into users values ('user4', 'pAssword4', 'user4@gmail.com', 'Jack', 'Doe', '1969-04-23', '126 Address Lane', '30608', 'Athens', 'GA', '1');
+insert into users values ('user5', 'pAssword5', 'user5@gmail.com', 'Jacky', 'Doe', '1969-04-24', '127 Address Lane', '30609', 'Athens', 'GA', '1');
+insert into users values ('user6', 'pAssword6', 'user6@gmail.com', 'Janet', 'Doe', '1969-04-25', '128 Address Lane', '30610', 'Watkinsville', 'GA', '1');
+insert into users values ('user7', 'pAssword7', 'user7@gmail.com', 'Joan', 'Doe', '1969-04-26', '129 Address Lane', '30611', 'Watkinsville', 'GA', '1');
+insert into users values ('user8', 'pAssword8', 'user8@gmail.com', 'Joanie', 'Doe', '1969-04-27', '130 Address Lane', '30612', 'Watkinsville', 'GA', '1');
+insert into users values ('user9', 'pAssword9', 'user9@gmail.com', 'Jake', 'Doe', '1969-04-28', '131 Address Lane', '30613', 'Watkinsville', 'GA', '1');
+insert into users values ('basic_user', 'pAssword10', 'user10@gmail.com', 'Jay', 'Doe', '1969-04-29', '132 Address Lane', '30614', 'Watkinsville', 'GA', '0');
 
 -- REVIEWS --
 insert into reviews values ('1', '8', 'This book was gripping until the very end. The chapters with heavy dialogue were such a BORE though. I''m the kind of guy who hates talking and only cares about the action in a book.', '21', 'user1');
