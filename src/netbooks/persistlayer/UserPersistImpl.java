@@ -14,8 +14,47 @@ public class UserPersistImpl {
 	public static Connection conn = null;
 
 	public static List<User> getUserForLogin(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	    
+	    try {
+		conn = DbUtils.connect();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+
+	    List<User> userList = new ArrayList<User>();
+	    
+	    String sql = "SELECT u.username, u.password, u.subscription FROM users u WHERE u.username = ?";
+	    PreparedStatement stmt = null;
+	    
+	    StringBuffer query = new StringBuffer(100);
+	    StringBuffer condition = new StringBuffer(100);
+	    
+	    condition.setLength(0);
+	    
+	    query.append(sql);
+	    
+	    try {
+		stmt = (PreparedStatement) conn.prepareStatement(sql);
+		stmt.setString(1, username);
+		int assign = stmt.executeUpdate();
+		if(assign != -1) {
+		    ResultSet rs = stmt.getResultSet();
+		    String user = rs.getString(1);
+		    String pass = rs.getString(2);
+		    int subscription = rs.getInt(3);
+		    
+		    User user1 = new User(user, pass, subscription);
+		    userList.add(user1);
+		}
+		
+	    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	    
+	    return userList;
+
+
 	}
 
 	public static List<User> getFullUserInfo(String username) {
