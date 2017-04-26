@@ -37,7 +37,7 @@ public class BookPersistImpl {
 			stmt.setString(1, genre);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
-			while(rs.next){
+			while(rs.next()){
 				int id = rs.getInt(1);
 				String title = rs.getString(2);
 				int numCopies = rs.getInt(3);
