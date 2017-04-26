@@ -181,10 +181,11 @@ public class BookPersistImpl {
 		return bookList;
 	}
 
-	public static void checkOutBook(String username, int bookId, String title) { //added extra parameter, bookId 
+	public static void checkOutBook(String username, int bookId, String title) { 
 		
+		//INSERT
 		String insertSql = "INSERT INTO checkedout (Books_id, Users_username) VALUES (?, ?)";            
-		PreparedStatement stmt;
+		PreparedStatement stmt1;
 
 		try {
 			try {
@@ -193,22 +194,32 @@ public class BookPersistImpl {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
+			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
 			
-			stmt.setString(1, username);
-			stmt.setInt(2, bookId);
+			stmt1.setString(1, username);
+			stmt1.setInt(2, bookId);
 			
-			stmt.executeUpdate();
+			stmt1.executeUpdate();
 
-		}
-		catch( SQLException e ) {
+		} catch( SQLException e ) {
 			e.printStackTrace();
 			System.out.println( "Could not check out book at this time.\nError:\t" + e );
 		}
 		
+		//UPDATE
 		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE title = ?";
+		PreparedStatement stmt2;
 		
-		/*update books table code*/
+		try {
+			stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
+			
+			stmt2.setString(2, title);
+			
+			stmt2.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println( "Could not check out book at this time.\nError:\t" + e );
+		}
 	}
 		
 	public static List<Book> getWaitlist(String username) {
