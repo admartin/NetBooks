@@ -184,7 +184,7 @@
                         <ul class="categoryRow clearfix">
                         <#list scifi>
 						<#items as book>	
-                            <li class="book" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
+                            <li class="book" data-id="${book.id}" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
                             <#if book.ebook>
                             	data-pdf="${book.link}
                             </#if>
