@@ -16,13 +16,6 @@ import netbooks.objectlayer.User;
 public class UserPersistImpl {
 
 	public static Connection conn = null;
-
-
-	public static void main(String[] args)
-	{
-		UserPersistImpl.updateAddress("user1", "no street", "Atlanta", "GA", 30009);
-	}
-	
 	
 	public static List<User> getUserForLogin(String username) {
 
