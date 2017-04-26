@@ -1,11 +1,11 @@
-package netbooks.persistlayer;
+package netbooks.persist;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
@@ -15,7 +15,7 @@ import netbooks.objectlayer.Review;
 
 public class BookPersistImpl {
 
-	private static Connection conn = null;
+	private static Connection conn = null; //establish connection to db
 	
 	public static List<Book> getBooksByGenre(String genre) {
 		
@@ -129,6 +129,12 @@ public class BookPersistImpl {
 		
 		String sql = "SELECT * FROM netbooks.books JOIN authors ON books.Authors_id= authors.id JOIN genres ON books.Genres_type = genres.type WHERE books.title = ?";
 		PreparedStatement stmt = null;
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
 		
@@ -175,30 +181,36 @@ public class BookPersistImpl {
 		return bookList;
 	}
 
-	public static void checkOutBook(String username) {
+	public static void checkOutBook(String username, int bookId, String title) { //added extra parameter, bookId 
 		
-		String sql = "INSERT INTO checkedout (Books_id, Users_username) VALUES (?, ?)";
-		PreparedStatement stmt = null;
-		StringBuffer query = new StringBuffer(100);
-		StringBuffer condition = new StringBuffer(100);
-		
-		condition.setLength(0);
-		
-		query.append(sql);
-		
-		try {
-			stmt = (PreparedStatement) conn.prepareStatement(sql);
-			stmt.setString(1, username);
-			int assign = stmt.executeUpdate();
-			if(assign != -1) {
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+		String insertSql = "INSERT INTO checkedout (Books_id, Users_username) VALUES (?, ?)";            
+		PreparedStatement stmt;
 
+		try {
+			try {
+				conn = DbUtils.connect();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			stmt = (PreparedStatement) conn.prepareStatement(insertSql);
+			
+			stmt.setString(1, username);
+			stmt.setInt(2, bookId);
+			
+			stmt.executeUpdate();
+
+		}
+		catch( SQLException e ) {
+			e.printStackTrace();
+			System.out.println( "Could not check out book at this time.\nError:\t" + e );
+		}
+		
+		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE title = ?";
+		
+		/*update books table code*/
+	}
+		
 	public static List<Book> getWaitlist(String username) {
 		// TODO Auto-generated method stub
 		return null;
