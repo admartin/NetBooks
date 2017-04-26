@@ -12,6 +12,7 @@ import com.mysql.jdbc.Statement;
 import netbooks.objectlayer.Author;
 import netbooks.objectlayer.Book;
 import netbooks.objectlayer.Review;
+import netbooks.objectlayer.User;
 
 public class BookPersistImpl {
 
@@ -86,34 +87,32 @@ public class BookPersistImpl {
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
 			stmt.setString(1, title);
-			int assign = stmt.executeUpdate();
-			if(assign != -1) {
-				ResultSet rs = stmt.getResultSet();
-				while( rs.next() ){
-					int id = rs.getInt(1);
-					String titleCol = rs.getString(2);
-					int numCopies = rs.getInt(3);
-					String pubDate = rs.getDate(4).toString();
-					int checkedOut = rs.getInt(5);
-					boolean ebook = rs.getBoolean(6);
-					String textURL = rs.getString(7);
-					String coverURL = rs.getString(8);
-					int rating = rs.getInt(9);
-					String description = rs.getString(10);
-					int authorId = rs.getInt(11);
-					String genre = rs.getString(12);
-					String fname = rs.getString(14);
-					String lname = rs.getString(15);
-					String birthday = rs.getDate(16).toString();
-					String gender = rs.getString(17);
-					String bio = rs.getString(18);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			while( rs.next() ){
+				int id = rs.getInt(1);
+				String titleCol = rs.getString(2);
+				int numCopies = rs.getInt(3);
+				String pubDate = rs.getDate(4).toString();
+				int checkedOut = rs.getInt(5);
+				boolean ebook = rs.getBoolean(6);
+				String textURL = rs.getString(7);
+				String coverURL = rs.getString(8);
+				int rating = rs.getInt(9);
+				String description = rs.getString(10);
+				int authorId = rs.getInt(11);
+				String genre = rs.getString(12);
+				String fname = rs.getString(14);
+				String lname = rs.getString(15);
+				String birthday = rs.getDate(16).toString();
+				String gender = rs.getString(17);
+				String bio = rs.getString(18);
 
-					String name = fname + " " + lname;
-					Author author = new Author(authorId, name, birthday, gender, bio);
-					reviewList = ReviewPersistImpl.selectReviewsById(id);
-					Book book = new Book(id, titleCol, numCopies, pubDate, checkedOut, ebook, textURL, coverURL, rating, author, genre, description, reviewList);
-					bookList.add(book);
-				}
+				String name = fname + " " + lname;
+				Author author = new Author(authorId, name, birthday, gender, bio);
+				reviewList = ReviewPersistImpl.selectReviewsById(id);
+				Book book = new Book(id, titleCol, numCopies, pubDate, checkedOut, ebook, textURL, coverURL, rating, author, genre, description, reviewList);
+				bookList.add(book);
 			}
 
 		} catch (SQLException e) {
@@ -219,8 +218,43 @@ public class BookPersistImpl {
 	}
 
 	public static List<Book> getWaitlist(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Book> bookList = new ArrayList<Book>();
+		List<Review> reviewList = new ArrayList<Review>();
+
+		String sql = "SELECT waitlist.id, waitlist.Books_id, waitlist.Users_username, books.cover FROM waitlist JOIN books ON waitlist.books_id = books.id WHERE waitlist.Users_username = ? ORDER BY id";
+		PreparedStatement stmt = null;
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			stmt = (PreparedStatement) conn.prepareStatement(sql);
+			stmt.setString(2, username);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			while( rs.next() ) {
+				int id = rs.getInt(1);
+				String user = rs.getString(3); //user_username
+				int booksId = rs.getInt(2); 
+				String cover = rs.getString(4);
+
+				Review review = new Review(-1, null, -1, null);
+				reviewList.add(review);
+				Book book = new Book(id, null, -1, null, -1, false, null, cover, -1, null, null, null, reviewList);
+				bookList.add(book);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return bookList;
+		
 	}
 
 }
