@@ -181,8 +181,21 @@ public class UserPersistImpl {
 	}
 
 	public static void updatePassword(String username, String password) {
-		// TODO Auto-generated method stub
+	    
+	    String updateSql = "UPDATE users SET password = ? WHERE username = ?";
+	    PreparedStatement stmt2;
+	    
+	    try {
+		stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
 		
+		stmt2.setString(2, password);               //may be different index other than 2
+		
+		stmt2.executeUpdate();
+	    } catch(SQLException e) {
+		e.printStackTrace();
+		System.out.println( "Could not update password at this time.\nError:\t" + e );
+	    }
+	    
 	}
 
 	public static void updateAddress(String username, String street, String city, String state, int zip) {
