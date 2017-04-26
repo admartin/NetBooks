@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
-
 import netbooks.objectlayer.Author;
 import netbooks.objectlayer.Book;
 import netbooks.objectlayer.Review;
-import netbooks.objectlayer.User;
 
 public class BookPersistImpl {
 
@@ -20,24 +17,25 @@ public class BookPersistImpl {
 
 	public static List<Book> getBooksByGenre(String genre) {
 
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
 		String sql = "SELECT * FROM netbooks.books JOIN authors ON books.Authors_id= authors.id JOIN genres ON books.Genres_type = genres.type WHERE genres.type = ?";
-		PreparedStatement stmt = null;
-		StringBuffer query = new StringBuffer(100);
-		StringBuffer condition = new StringBuffer(100);
-
-		condition.setLength(0);
-
-		query.append(sql);
+		PreparedStatement stmt;
 
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
 			stmt.setString(1, genre);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
-			while(rs.next()){
+			while( rs.next() ){
 				int id = rs.getInt(1);
 				String title = rs.getString(2);
 				int numCopies = rs.getInt(3);
@@ -72,6 +70,13 @@ public class BookPersistImpl {
 
 	public static List<Book> getBooksByTitle(String title) {
 
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
@@ -104,7 +109,9 @@ public class BookPersistImpl {
 				String genre = rs.getString(12);
 				String fname = rs.getString(14);
 				String lname = rs.getString(15);
-				String birthday = rs.getDate(16).toString();
+				String birthday = null;
+				if(rs.getDate(16) != null)
+					birthday = rs.getDate(16).toString();
 				String gender = rs.getString(17);
 				String bio = rs.getString(18);
 
@@ -125,10 +132,17 @@ public class BookPersistImpl {
 
 	public static List<Book> getBooksByAuthor(String author) {
 
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
-		String sql = "SELECT * FROM netbooks.books JOIN authors ON books.Authors_id= authors.id JOIN genres ON books.Genres_type = genres.type WHERE books.title = ?";
+		String sql = "SELECT * FROM netbooks.books JOIN authors ON books.Authors_id= authors.id JOIN genres ON books.Genres_type = genres.type WHERE authors.fname = ? AND authors.lname = ?";
 		PreparedStatement stmt = null;
 		try {
 			conn = DbUtils.connect();
@@ -138,8 +152,12 @@ public class BookPersistImpl {
 		}
 
 		try {
+			String[] names = author.split("\\s+");
+			String fname = names[0];
+			String lname = names[1];
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
-			stmt.setString(1, author);
+			stmt.setString(1, fname);
+			stmt.setString(2,  lname);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
 			while( rs.next() ) {
@@ -155,8 +173,8 @@ public class BookPersistImpl {
 				String description = rs.getString(10);
 				int authorId = rs.getInt(11);
 				String genre = rs.getString(12);
-				String fname = rs.getString(14);
-				String lname = rs.getString(15);
+				fname = rs.getString(14);
+				lname = rs.getString(15);
 				String birthday = rs.getDate(16).toString();
 				String gender = rs.getString(17);
 				String bio = rs.getString(18);
