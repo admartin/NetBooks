@@ -29,14 +29,16 @@
 	            
 	            if(($(this).data('copies') - $(this).data('out')) > 0 )
 	            {
+	            	$('input[name=book_id]').attr('value', $(this).data('id'))
 		            $("#footer").append(
 	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button>'
 	                );
                 }
                 else
                 {
+                	$('input[name=wait_id]').attr('value', $(this).data('id'))
                 	$("#footer").append(
-	                    '<button id="order" type="button" class="btn btn-success" data-dismiss="modal">Add to Waitlist</button>'
+	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#waitlist">Add To Waitlist</button>'
 	                );
                 }
                 
@@ -104,11 +106,11 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                     <h4 id="title" class="modal-title">Add A Review</h4>
                   </div>
                   <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="AddReview" method="post">
                       <div class="form-group">
                         <textarea class="form-control" id="inputComment" rows="5"></textarea>
                       </div>
@@ -127,14 +129,38 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                   </div>
                   <div class="modal-body">
                     <p>Are you sure you would like to check out this book?</p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-success">Order</button>
+                  <form role="form" action="CheckOut" method="post">
+                  	<input type="hidden" value="" name="book_id" />
+                    <button type="submit"  data-dismiss="modal" class="btn btn-success">Order</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="waitlist" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to add this book to your waitlist?</p>
+                  </div>
+                  <div class="modal-footer">
+                  <form role="form" action="AddWaitlist" method="post">
+                  	<input type="hidden" value="" name="wait_id" />
+                    <button type="submit"  data-dismiss="modal" class="btn btn-success">Add</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </form>
                   </div>
                 </div>
             </div>
