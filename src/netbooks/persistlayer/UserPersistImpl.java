@@ -261,9 +261,29 @@ public class UserPersistImpl {
 	    
 	}
 
-	public static void addWaitlistEntry(String username, String title) {
-		// TODO Auto-generated method stub
-		
+    public static void addWaitlistEntry(String username, int bookID) {   //changed from book title to id to match waitlist table
+
+	try {
+	    conn = DbUtils.connect();
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
+	
+	String insertSql = "INSERT INTO waitlist (id, Users_username, Books_id) VALUES (?, ?, ?)";
+	PreparedStatement stmt2;
+	
+	try {
+	    stmt2 = (PreparedStatement) conn.prepareStatement(insertSql);
+	    
+	    stmt2.setString(2, username);               //may be different indeces
+	    stmt2.setInt(3, bookID);
+	    
+	    stmt2.executeUpdate();
+	} catch(SQLException e) {
+	    e.printStackTrace();
+	    System.out.println( "Could not add waitlist entry at this time.\nError:\t" + e );
+	}
+	
+    }
 
 }
