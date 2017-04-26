@@ -17,6 +17,13 @@ public class UserPersistImpl {
 
 	public static Connection conn = null;
 
+
+	public static void main(String[] args)
+	{
+		UserPersistImpl.updateAddress("user1", "no street", "Atlanta", "GA", 30009);
+	}
+	
+	
 	public static List<User> getUserForLogin(String username) {
 
 		try {
@@ -78,21 +85,19 @@ public class UserPersistImpl {
 			ResultSet rs = stmt.getResultSet();
 
 			while( rs.next() ) {
-				int id = rs.getInt(1);
-				String user = rs.getString(2);
-				String password = rs.getString(3);
-				String fname = rs.getString(4);
-				String lname = rs.getString(5); //some of these are probably off, I don't think my 
-				String email = rs.getString(6);//database is up to date with correct columns
-				String birthdate = rs.getString(7);
-				String address = rs.getString(8);
+				String user = rs.getString(1);
+				String password = rs.getString(2);
+				String fname = rs.getString(3);
+				String lname = rs.getString(4); //some of these are probably off, I don't think my 
+				String email = rs.getString(5);//database is up to date with correct columns
+				String birthdate = rs.getString(6);
+				String address = rs.getString(7);
+				int zipcode = rs.getInt(8);
 				String city = rs.getString(9);
 				String state = rs.getString(10);
-				int zipcode = rs.getInt(11);
-				int cardNum = rs.getInt(12);
-				int subscription = rs.getInt(13);
+				int subscription = rs.getInt(11);
 
-				User user1 = new User(id, username, password, fname, lname, birthdate, address, city, state, zipcode, cardNum, subscription, booksCheckedOut, booksRead, email);
+				User user1 = new User(username, password, fname, lname, birthdate, address, city, state, zipcode, -1, subscription, booksCheckedOut, booksRead, email);
 				userList.add(user1);
 			}
 
