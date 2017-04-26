@@ -62,7 +62,6 @@ public class SignInServlet extends HttpServlet {
 	}
 	
 	private void validateLogin(HttpServletRequest request, HttpServletResponse response){
-		boolean pass = false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
@@ -75,12 +74,12 @@ public class SignInServlet extends HttpServlet {
 			synchronized(sess){
 			//check if pass is valid
 				List<User> ulist = UserLogicImpl.getUserForLogin(username);	
-				System.out.println(ulist.size());
 				if(ulist == null || !password.equals(ulist.get(0).getPassword())){
 					DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 					SimpleHash root = new SimpleHash(db.build());
 					root.put("error","Invalid login information.");
 					String templateName = "error.ftl";
+					root.put("error","Invalid login.");
 					processor.runTemp(templateName,root,request,response);
 				}
 				else{
@@ -107,7 +106,7 @@ public class SignInServlet extends HttpServlet {
 		
 		
 		root.put("username", sess.getAttribute("username") );
-		if((Integer)sess.getAttribute("premium") == 1){
+		if((Boolean)sess.getAttribute("premium")){
 			root.put("premium",true);
 		}
 		else{
@@ -116,6 +115,9 @@ public class SignInServlet extends HttpServlet {
 
 		//get books by genre -scifi
 		List<Book> scifi = BookLogicImpl.getBooksByGenre("Sci-Fi");
+		for(int i =0; i < scifi.size(); i++){
+			System.out.println(scifi.get(i).getID());
+		}
 		root.put("scifi", scifi );
 		//get books by genre -adventure
 		List<Book> adven = BookLogicImpl.getBooksByGenre("Adventure");
