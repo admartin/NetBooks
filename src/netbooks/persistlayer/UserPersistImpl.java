@@ -162,7 +162,21 @@ public class UserPersistImpl {
 	}
 
 	public static void updateEmail(String username, String email) {
-		// TODO Auto-generated method stub
+	    
+	    String updateSql = "UPDATE users SET email = ? WHERE username = ?";
+	    PreparedStatement stmt2;
+	    
+	    try {
+		stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
+		
+		stmt2.setString(3, email);               //may be different index other than 3
+		
+		stmt2.executeUpdate();
+	    } catch(SQLException e) {
+		e.printStackTrace();
+		System.out.println( "Could not update email at this time.\nError:\t" + e );
+	    }
+	    
 		
 	}
 
