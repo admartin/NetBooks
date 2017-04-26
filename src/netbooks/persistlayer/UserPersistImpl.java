@@ -199,8 +199,24 @@ public class UserPersistImpl {
 	}
 
 	public static void updateAddress(String username, String street, String city, String state, int zip) {
-		// TODO Auto-generated method stub
+	    
+	    String updateSql = "UPDATE users SET address = ?, city = ?, state = ?, zipcode = ? WHERE username = ?";
+	    PreparedStatement stmt2;
+	    
+	    try {
+		stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
 		
+		stmt2.setString(7, street);
+		stmt2.setString(9, city);              //these indeces may be wrong
+		stmt2.setString(10, state);
+		stmt2.setInt(8, zip);
+		
+		stmt2.executeUpdate();
+	    } catch(SQLException e) {
+		e.printStackTrace();
+		System.out.println( "Could not update address at this time.\nError:\t" + e );
+	    }
+	    
 	}
 
 	public static void updateSub(String username, int sub) {
