@@ -11,7 +11,7 @@ import netbooks.objectlayer.User;
 
 public class UserPersistImpl {
 	
-	public static Connection conn;
+	public static Connection conn = null;
 
 	public static List<User> getUserForLogin(String username) {
 		// TODO Auto-generated method stub
