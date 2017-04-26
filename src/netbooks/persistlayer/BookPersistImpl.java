@@ -194,7 +194,7 @@ public class BookPersistImpl {
 		return bookList;
 	}
 
-	public static void checkOutBook(String username, int bookId, String title) {
+	public static void checkOutBook(String username, int bookId) {
 
 		//INSERT
 		String insertSql = "INSERT INTO checkedout (Books_id, Users_username) VALUES (?, ?)";            
@@ -209,8 +209,8 @@ public class BookPersistImpl {
 			}
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
 			
-			stmt1.setString(1, username);
-			stmt1.setInt(2, bookId);
+			stmt1.setString(2, username);
+			stmt1.setInt(1, bookId);
 			
 			stmt1.executeUpdate();
 
