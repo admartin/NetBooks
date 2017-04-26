@@ -1,7 +1,6 @@
 package netbooks.objectlayer;
 
 public class User {
-	private int id;
 	private String username;
 	private String password;
 	private String fname;
@@ -17,7 +16,29 @@ public class User {
 	private Book[] checkedOut;
 	private Book[] booksRead;
 	
-	public User(int id, String username, String password, String fname, String lname, String birthdate, String address, 
+	public User() {
+		
+	}
+	
+	public User buildString(String username) {
+		this.username = username;
+		return this;
+	}
+	
+	public User buildPassword(String password) {
+		this.password = password;
+		return this;
+	}
+	
+	public User buildSub(int sub) {
+		this.subscription = sub;
+		return this;
+	}
+	
+	public User build() {
+		return this;
+	}
+	public User(String username, String password, String fname, String lname, String birthdate, String address, 
 			String city, String state, int zipcode, int cardNum, int subscription, Book[] checkedOut, Book[] booksRead,
 			String email){
 		this.username = username;
@@ -218,13 +239,6 @@ public class User {
 		this.booksRead = booksRead;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	public String getEmail(){
 		return email;
