@@ -18,9 +18,9 @@ USE `netbooks` ;
 DROP TABLE IF EXISTS `netbooks`.`Users` ;
 
 CREATE TABLE IF NOT EXISTS `netbooks`.`Users` (
-  `username` VARCHAR(12) NOT NULL,
+  `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(17) NOT NULL,
-  `email` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(40) NOT NULL,
   `fname` VARCHAR(45) NULL,
   `lname` VARCHAR(45) NULL,
   `birthdate` DATE NULL,
