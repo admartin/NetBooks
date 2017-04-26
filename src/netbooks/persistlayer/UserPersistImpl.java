@@ -163,6 +163,12 @@ public class UserPersistImpl {
 
 	public static void updateEmail(String username, String email) {
 	    
+	    try {
+		conn = DbUtils.connect();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+
 	    String updateSql = "UPDATE users SET email = ? WHERE username = ?";
 	    PreparedStatement stmt2;
 	    
@@ -182,6 +188,12 @@ public class UserPersistImpl {
 
 	public static void updatePassword(String username, String password) {
 	    
+	    try {
+		conn = DbUtils.connect();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+
 	    String updateSql = "UPDATE users SET password = ? WHERE username = ?";
 	    PreparedStatement stmt2;
 	    
@@ -200,6 +212,12 @@ public class UserPersistImpl {
 
 	public static void updateAddress(String username, String street, String city, String state, int zip) {
 	    
+	    try {
+		conn = DbUtils.connect();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+
 	    String updateSql = "UPDATE users SET address = ?, city = ?, state = ?, zipcode = ? WHERE username = ?";
 	    PreparedStatement stmt2;
 	    
@@ -220,8 +238,27 @@ public class UserPersistImpl {
 	}
 
 	public static void updateSub(String username, int sub) {
-		// TODO Auto-generated method stub
+	    
+	    try {
+		conn = DbUtils.connect();
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+
+	    String updateSql = "UPDATE users SET subscription = ? WHERE username = ?";
+	    PreparedStatement stmt2;
+	    
+	    try {
+		stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
 		
+		stmt2.setInt(11, sub);               //may be different index other than 11
+		
+		stmt2.executeUpdate();
+	    } catch(SQLException e) {
+		e.printStackTrace();
+		System.out.println( "Could not update subscription at this time.\nError:\t" + e );
+	    }
+	    
 	}
 
 	public static void addWaitlistEntry(String username, String title) {
