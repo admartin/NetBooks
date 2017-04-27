@@ -28,15 +28,14 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="Home">Netbooks</a>
+                        <a class="navbar-brand" href="SignInServlet">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> ${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Your Account</a></li>
-                                <li><a href="settings.html">Settings</a></li>
+                                <li><a href="Account?user=${username}">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
@@ -66,15 +65,15 @@
                         <div class="col-sm-offset-3 col-sm-6">
 		                    <div class="input-group" align="center">
 		                        <label class="radio-inline">
-		                          <input type="radio" name="optradio">Base Subscription
+		                          <input type="radio" value="base" name="optradio" checked>Base Subscription
 		                        </label>
 		                        <label class="radio-inline">
-		                          <input type="radio" name="optradio2">Premium Subscription
+		                          <input type="radio" name="optradio">Premium Subscription
 		                        </label>
 		                      </div>
                             <div class="row" align="center" style="margin-top:10px">
-                               <input type="submit"  class="btn btn-success" name="subscriptionbutton value="Submit">
-                               <a href="profile.html" role="button" class="btn btn-danger" >Cancel</a>
+                               <input type="submit"  class="btn btn-success" name="subscriptionbutton" value="Submit">
+                               <a href="Account"  role="button" class="btn btn-danger" >Cancel</a>
                             </div>
                         </div>
                     </div>

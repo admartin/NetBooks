@@ -8,9 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="js/ajax-query.js"></script>
         <script>
-        
-        
-        
+         
         $(document).ready(function(){
             //listen for clicks on book images
             $('#main').on('click','li',function(){
@@ -45,7 +43,8 @@
                 $("#info").html(
                     '<p><strong>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</strong></p>'
                 );
-
+	
+				if($(this).data('sub') == 1){
                  if(($(this).data('copies') - $(this).data('out')) > 0 )
 	           {
 	            	$('input[name=book_id]').attr('value', $(this).data('id'))
@@ -59,6 +58,7 @@
                 	$("#footer").html(
 	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#waitlist">Add To Waitlist</button><button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
 	                );
+                }
                 }
                 var pdf = $(this).data('pdf');
                 if(typeof pdf != 'undefined' ){
@@ -222,7 +222,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="Home">Netbooks</a>
+                        <a class="navbar-brand" href="SignInServlet">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -264,6 +264,9 @@
                             data-id="${book.getID()}" data-summary="${book.getDesr()}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            	
+                            <#else>
+                            	data-sub="0"
                             </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
@@ -287,7 +290,10 @@
                             </#if>
                             <#if premium>
                             	data-sub="1"
+                            <#else>
+                            	data-sub="0"
                             </#if>
+                            
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
@@ -307,6 +313,9 @@
                             <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            	
+                            <#else>
+                            	data-sub="0"
                             </#if> 
                             <#if book.jsonReview??>
                             	data-reviews="${book.jsonReview}"
@@ -330,6 +339,9 @@
                             <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            	
+                            <#else>
+                            	data-sub="0"
                             </#if> 
                             <#if book.jsonReview??>
                             	data-reviews="${book.jsonReview}"
@@ -353,6 +365,9 @@
                             <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            	
+                            <#else>
+                            	data-sub="0"
                             </#if> 
                             <#if book.jsonReview??>
                             	data-reviews="${book.jsonReview}"

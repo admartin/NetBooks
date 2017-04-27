@@ -46,6 +46,7 @@
                     '<p><strong>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</strong></p>'
                 );
 
+                 if($(this).data('sub') == 1){
                  if(($(this).data('copies') - $(this).data('out')) > 0 )
 	           {
 	            	$('input[name=book_id]').attr('value', $(this).data('id'))
@@ -59,6 +60,7 @@
                 	$("#footer").html(
 	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#waitlist">Add To Waitlist</button><button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
 	                );
+                }
                 }
                 var pdf = $(this).data('pdf');
                 if(typeof pdf != 'undefined' ){
@@ -223,16 +225,14 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="Home">Netbooks</a>
+                        <a class="navbar-brand" href="SignInServlet">Netbooks</a>
                     </div>
-                     <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> ${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                            <form method="post" action="Account">
-                                <li><a href="Account">Your Account</a></li>
-                                </form>
+                                <li><a href="Account?user=${username}">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
@@ -240,7 +240,7 @@
                     </ul>
                     <form class="navbar-form navbar-right" action="Search" method="post">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="search" placeholder="Search">
+                            <input type="text" name="search" class="form-control" placeholder="Search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -262,7 +262,10 @@
                             <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
-                            </#if>
+                            	
+                            <#else>
+                            	data-sub="0"
+                            </#if> 
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"

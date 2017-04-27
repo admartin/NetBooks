@@ -28,14 +28,14 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="Home">Netbooks</a>
+                        <a class="navbar-brand" href="SignInServlet">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> $(username)
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> ${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="localhost:8080/Netbooks/Account">Your Account</a></li>
+                                <li><a href="Account?user=${username}">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="row" align="center">
                                <input type="submit"  class="btn btn-success" name="passwordbutton" value="Submit">
-                               <a role="button" class="btn btn-danger" >Cancel</a>
+                               <a href="Account"  role="button" class="btn btn-danger" >Cancel</a>
                             </div>
                         </div>
                     </div>

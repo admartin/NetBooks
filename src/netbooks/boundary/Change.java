@@ -17,6 +17,7 @@ import freemarker.template.SimpleHash;
 import netbooks.logiclayer.BookLogicImpl;
 import netbooks.logiclayer.UserLogicImpl;
 import netbooks.objectlayer.Book;
+import netbooks.objectlayer.User;
 
 /**
  * Servlet implementation class Change
@@ -64,8 +65,7 @@ public class Change extends HttpServlet {
 			UserLogicImpl.updateAddress(user,address,city,state,zip);
 		}
 		else if(request.getParameter("subscriptionbutton")!=null){
-			System.out.println("we're here");
-			if (request.getParameter("optradio") != null) {
+			if (request.getParameter("optradio").equals("base")) {
 				UserLogicImpl.updateSub(user, 0);
 			}
 			else {
@@ -76,27 +76,32 @@ public class Change extends HttpServlet {
 			UserLogicImpl.updateEmail(user,request.getParameter("email"));
 		}
 		
-			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
-			SimpleHash root = new SimpleHash(db.build());
-			String templateName = "home.ftl";
-			root.put("username",(String)sess.getAttribute("username"));
-			if((Boolean)sess.getAttribute("premium")){
-				root.put("premium",true);
-			}
-			else{
-				root.put("premium",false);
-			}
-			List<Book> scifi = BookLogicImpl.getBooksByGenre("Sci-Fi");
-			root.put("scifi", scifi );
-			List<Book> adven = BookLogicImpl.getBooksByGenre("Adventure");
-			root.put("adven", adven );
-			List<Book> drama = BookLogicImpl.getBooksByGenre("Drama");
-			root.put("drama", drama );
-			List<Book> horror = BookLogicImpl.getBooksByGenre("Horror");
-			root.put("horror", horror );
-			List<Book> romance = BookLogicImpl.getBooksByGenre("Romance");
-			root.put("romance", romance);
-			processor.runTemp(templateName,root,request,response);
+		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
+		SimpleHash root = new SimpleHash(db.build());
+		boolean subscrip;
+		
+		List<Book> checkout = BookLogicImpl.getCheckedOutBooks(user);
+
+		root.put("username", user);
+		User userob = UserLogicImpl.getFullUserInfo(user).get(0);
+		root.put("email",userob.getEmail());
+		String address = userob.getAddress() + "<br/>" + userob.getCity() + ", " + userob.getState() + " " + userob.getZipcode();
+		root.put("address",address);
+		root.put("waitlist",BookLogicImpl.getWaitlistProfile(userob.getUsername()));
+		
+		if(userob.getSubscription() == 1){
+			subscrip = true;
+			sess.setAttribute("premium", true);
+	    }
+		else{
+			subscrip = false;
+			sess.setAttribute("premium", false);
+		}
+
+		root.put("premium",subscrip);
+		root.put("checkedout",checkout);
+		String templateName = "account.ftl";
+		processor.runTemp(templateName,root,request,response);
 		
 	}
 }
