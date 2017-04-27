@@ -298,5 +298,42 @@ public class BookPersistImpl {
 		return bookList;
 		
 	}
+	
+	public static List<Book> getCheckedOut(String username){
+		
+		List<Book> bookList = new ArrayList<Book>();
+		List<Review> reviewList = new ArrayList<Review>();
+
+		String sql = "SELECT books.title FROM checkedout JOIN books ON checkedout.books_id = books.id WHERE checkedout.Users_username = ? ORDER BY id";
+		PreparedStatement stmt = null;
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			stmt = (PreparedStatement) conn.prepareStatement(sql);
+			stmt.setString(1, username); //was 2, username in params
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			while( rs.next() ) {
+				String title = rs.getString(1);
+
+				Review review = new Review(-1, null, -1, null);
+				reviewList.add(review);
+				Book book = new Book(-1, title, -1, null, -1, false, null, null, -1, null, null, null, reviewList);
+				bookList.add(book);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return bookList;
+		
+	}
 
 }
