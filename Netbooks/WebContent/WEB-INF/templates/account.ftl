@@ -28,7 +28,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="SignInServlet?user=${username}">Netbooks</a>
+                        <a class="navbar-brand" href="Home">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -43,7 +43,7 @@
                     </ul>
                     <form class="navbar-form navbar-right" action="Search" method="post">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" name="search" class="form-control" placeholder="Search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -101,7 +101,7 @@
                </div>
                <div class="row">
                   <div class="col-md-2 col-md-offset-2">Book-to-Door 
-                  	<#if subscription><span class="glyphicon glyphicon-ok" style="color:green"></span></#if>
+                  	<#if premium><span class="glyphicon glyphicon-ok" style="color:green"></span></#if>
                   </div>
                 </div>
                 <div class="row">
@@ -110,23 +110,26 @@
               <div class="row">
                     <!-- Category -->
                     <div class="col-md-4">
-                    <h4>Your Waitlisted Books</h4>
+                    <h4>Your Books</h4>
                     </div>
-                  <div class="col-md-2 pull-right text-right"><a href="Settings?opt=waitlist">Edit Waitlist</a></div>
                 </div>
 		</form>
-                <#if waitlist?has_content>
+                <#if checkedout?has_content>
                 <div class="row">
                     <div class="category">
                         <ul class=" col-md-offset-2 categoryRow clearfix">
-                        <#list waitlist>
+                        <#list checkedout>
 						<#items as book>	
-                            <li class="book" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
-                            <#if book.ebook>
-                            	data-pdf="${book.link}
+                            <li class="book" data-image="${book.getCover()}"  
+                            <#if premium>
+                            	data-sub="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
-                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
+                            <#if book.ebook>
+                            	data-pdf="${book.link}"
+                            	data-ebook="1"
+                            </#if>
+                                data-copies="${book.numCopies}" data-out="${book.numOut}">
+                                <span><img class="tile__img" src="${book.getCover()}"/></span>       
                             </li>
                         </#items>
                         </#list>

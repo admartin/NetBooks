@@ -17,6 +17,7 @@ import freemarker.template.SimpleHash;
 import netbooks.objectlayer.User;
 import netbooks.logiclayer.UserLogicImpl;
 import netbooks.logiclayer.BookLogicImpl;
+import netbooks.objectlayer.Book;
 
 import java.util.List;
 
@@ -55,11 +56,11 @@ public class Account extends HttpServlet {
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String user = (String)sess.getAttribute("username");
-		//String user = request.getParameter("user");
 		boolean subscrip;
 		
+		List<Book> checkout = BookLogicImpl.getCheckedOutBooks(user);
+
 		root.put("username", user);
-		System.out.println(user);
 		User userob = UserLogicImpl.getFullUserInfo(user).get(0);
 		root.put("email",userob.getEmail());
 		String address = userob.getAddress() + "<br/>" + userob.getCity() + ", " + userob.getState() + " " + userob.getZipcode();
@@ -73,7 +74,8 @@ public class Account extends HttpServlet {
 			subscrip = false;
 		}
 
-		root.put("subscription",subscrip);
+		root.put("premium",subscrip);
+		root.put("checkedout",checkout);
 		String templateName = "account.ftl";
 		processor.runTemp(templateName,root,request,response);
 	}

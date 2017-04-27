@@ -21,9 +21,14 @@ public class BookLogicImpl {
 		return BookPersistImpl.getBooksByAuthor(author);
 	}
 	
-	public static void checkOutBook(String username, int id)
+	public static List<Book> getAllBooks()
 	{
-		BookPersistImpl.checkOutBook(username,id);
+		return BookPersistImpl.getAllBooks();
+	}
+	
+	public static void checkOutBook(String username, int book_id)
+	{
+		BookPersistImpl.checkOutBook(username, book_id);
 	}
 	
 	public static List<Book> getWaitlistProfile(String username)
@@ -34,5 +39,10 @@ public class BookLogicImpl {
 	public static List<Book> getWaitlistEdit(String username)
 	{
 		return BookPersistImpl.getWaitlist(username);
+	}
+	
+	public static List<Book> getCheckedOutBooks(String username)
+	{
+		return BookPersistImpl.getCheckedOut(username);
 	}
 }

@@ -15,6 +15,9 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import netbooks.logiclayer.BookLogicImpl;
 import netbooks.logiclayer.UserLogicImpl;
+import netbooks.objectlayer.Book;
+
+import java.util.List;
 
 /**
  * Servlet implementation class Change
@@ -62,18 +65,39 @@ public class Change extends HttpServlet {
 			UserLogicImpl.updateAddress(user,address,city,state,zip);
 		}
 		else if(request.getParameter("subscriptionbutton")!=null){
-			//???
+			System.out.println("we're here");
+			if (request.getParameter("optradio") != null) {
+				UserLogicImpl.updateSub(user, 0);
+			}
+			else {
+				UserLogicImpl.updateSub(user, 1);
+			}
 		}
 		else if(request.getParameter("emailbutton")!=null){
 			UserLogicImpl.updateEmail(user,request.getParameter("email"));
 		}
-		else{
+		
 			DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 			SimpleHash root = new SimpleHash(db.build());
-			String templateName = "waitlist.ftl";
-			root.put("waitlist",BookLogicImpl.getWaitlistProfile(user));
+			String templateName = "home.ftl";
+			root.put("username",(String)sess.getAttribute("username"));
+			if((Boolean)sess.getAttribute("premium")){
+				root.put("premium",true);
+			}
+			else{
+				root.put("premium",false);
+			}
+			List<Book> scifi = BookLogicImpl.getBooksByGenre("Sci-Fi");
+			root.put("scifi", scifi );
+			List<Book> adven = BookLogicImpl.getBooksByGenre("Adventure");
+			root.put("adven", adven );
+			List<Book> drama = BookLogicImpl.getBooksByGenre("Drama");
+			root.put("drama", drama );
+			List<Book> horror = BookLogicImpl.getBooksByGenre("Horror");
+			root.put("horror", horror );
+			List<Book> romance = BookLogicImpl.getBooksByGenre("Romance");
+			root.put("romance", romance);
 			processor.runTemp(templateName,root,request,response);
-		}
 		
 	}
 

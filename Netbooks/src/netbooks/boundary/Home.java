@@ -15,16 +15,14 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 
-import netbooks.logiclayer.UserLogicImpl;
-import netbooks.objectlayer.User;
 import netbooks.objectlayer.Book;
 import netbooks.logiclayer.BookLogicImpl;
 
 /**
  * Servlet implementation class SignInServlet
  */
-@WebServlet("/SignInServlet")
-public class SignInServlet extends HttpServlet {
+@WebServlet("/Home")
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private TemplateProcessor processor;
@@ -32,7 +30,7 @@ public class SignInServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignInServlet() {
+    public Home() {
         super();
     }
     
@@ -52,55 +50,11 @@ public class SignInServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			if(request.getParameter("login") != null){
-					validateLogin(request,response);
-			}//if came here by login
-			else{
-				HttpSession sess = request.getSession(false);
-				showHomePage(request,response,(String)sess.getAttribute("username"));
-			}//if came here by homepage link
+			HttpSession sess = request.getSession(false);
+			showHomePage(request,response,(String)sess.getAttribute("username"));
 
 	}
 	
-	private void validateLogin(HttpServletRequest request, HttpServletResponse response){
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		try{
-			HttpSession sess = request.getSession();
-			if(sess != null){
-				sess.invalidate();
-				sess = request.getSession(true);
-			}//create new session if a user was logged in prior
-			synchronized(sess){
-			//check if pass is valid
-				List<User> ulist = UserLogicImpl.getUserForLogin(username);	
-				if(ulist != null){
-					if(password.equals(ulist.get(0).getPassword())){
-						sess.setAttribute("username",username);
-						if(ulist.get(0).getSubscription() == 0){
-							sess.setAttribute("premium", false);
-	            			}
-						else{
-							sess.setAttribute("premium", true);
-						}
-						showHomePage(request,response,username);
-					}
-				}
-				else{
-					DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
-					SimpleHash root = new SimpleHash(db.build());
-					String templateName = "error.ftl";
-					root.put("error","Invalid login.");
-					processor.runTemp(templateName,root,request,response);
-				}
-			}		
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}
 	
 	public void showHomePage(HttpServletRequest request, HttpServletResponse response,String username){
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
