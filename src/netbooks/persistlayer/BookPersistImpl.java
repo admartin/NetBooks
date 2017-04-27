@@ -345,5 +345,71 @@ public static List<Book> getCheckedOut(String username){
 		return bookList;
 		
 	}
+	
+	public static List<Book> getBooksById(int id){
+		
+		List<Book> bookList = new ArrayList<Book>();
+		List<Review> reviewList = new ArrayList<Review>();
+		
+		String sql = "SELECT * FROM books JOIN authors ON books.Authors_id = authors.id JOIN genres ON books.Genres_type = genres.type WHERE books.id = ?";
+		PreparedStatement stmt = null;
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+
+		condition.setLength(0);
+
+		query.append(sql);
+
+		try {
+			stmt = (PreparedStatement) conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			stmt.executeQuery();
+			ResultSet rs = stmt.getResultSet();
+			while( rs.next() ){
+				String titleCol = rs.getString(2);
+				int numCopies = rs.getInt(3);
+				String pubDate = rs.getDate(4).toString();
+				int checkedOut = rs.getInt(5);
+				boolean ebook = rs.getBoolean(6);
+				String textURL = rs.getString(7);
+				String coverURL = rs.getString(8);
+				int rating = rs.getInt(9);
+				String description = rs.getString(10);
+				int authorId = rs.getInt(11);
+				String genre = rs.getString(12);
+				String fname = rs.getString(14);
+				String lname = rs.getString(15);
+				String birthday = rs.getDate(16).toString();
+				String gender = rs.getString(17);
+				String bio = rs.getString(18);
+
+				String name = fname + " " + lname;
+				Author author = new Author(authorId, name, birthday, gender, bio);
+				reviewList = ReviewPersistImpl.selectReviewsById(id);
+				Book book = new Book(id, titleCol, numCopies, pubDate, checkedOut, ebook, textURL, coverURL, rating, author, genre, description, reviewList);
+				bookList.add(book);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bookList;
+		
+	}
 
 }
