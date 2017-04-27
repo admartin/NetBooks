@@ -49,4 +49,9 @@ public class UserLogicImpl {
 	{
 		UserPersistImpl.addWaitlistEntry(username, book_id);
 	}
+	
+	public static void deleteUser(String username) 
+	{
+		UserPersistImpl.deleteUser(username);
+	}
 }
