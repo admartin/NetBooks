@@ -204,16 +204,40 @@
                 <!-- Book browser -->
                 <div id="browser">
                     
+                    !-- Category -->
+                    <div class="categoryTitle">Sci-Fi</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                        <#list scifi as book>
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
+                            </#if>
+                            <#if book.ebook>
+                            	data-pdf="${book.link}
+                            	data-ebook="1"
+                            </#if>
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
+                            </li>
+                        </#list>
+                        </ul>
+                    </div>   
+                
                 <!-- Category -->
                     <div class="categoryTitle">Adventure</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
                         <#list adven as book>	
-                            <li class="book" data-id="${book.id}" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
+                            </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}
+                            	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -225,12 +249,16 @@
                     <div class="categoryTitle">Drama</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list drama as book>	
-                            <li class="book" data-id="${book.id}" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
+                        <#list drama as book>
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
+                            </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}
+                            	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -242,13 +270,16 @@
                     <div class="categoryTitle">Horror</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list horror as book>	
-                            <li class="book" data-id="${book.id}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
-                            <#if book.ebook>
-                                data-ebook="1" 
-                            	data-pdf="${book.link}
+                        <#list horror as book>
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                            <#if book.ebook>
+                            	data-pdf="${book.link}
+                            	data-ebook="1"
+                            </#if>
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -261,36 +292,22 @@
                     <div class="category">
                         <ul class="categoryRow clearfix">
                         <#list romance as book>	
-                            <li class="book" data-id="${book.id}" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
+                            </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}
+                            	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
                         </ul>
                     </div>                    
                 </div> 
-                    <!-- Category -->
-                    <div class="categoryTitle">Sci-Fi</div>
-                    <div class="category">
-                        <ul class="categoryRow clearfix">
-                        <#list scifi>
-						<#items as book>	
-                            <li class="book" data-id="${book.id}" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
-                            <#if book.ebook>
-                            	data-pdf="${book.link}
-                            </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
-                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
-                            </li>
-                        </#items>
-                        </#list>
-                        </ul>
-                    </div>   
-                                        
-                </div>    
+                
             </div>            
         </div> <!--! end of #container -->        
     </body>
