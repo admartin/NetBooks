@@ -18,7 +18,7 @@ public class BookPersistImpl {
 	public static List<Book> getAllBooks(){
 		return null;
 	}
-	
+
 	public static List<Book> getBooksByGenre(String genre) {
 
 		try {
@@ -27,7 +27,7 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
@@ -89,7 +89,7 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
@@ -156,7 +156,7 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
@@ -231,26 +231,26 @@ public class BookPersistImpl {
 				e.printStackTrace();
 			}
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
-			
+
 			stmt1.setString(2, username);
 			stmt1.setInt(1, bookId);
-			
+
 			stmt1.executeUpdate();
 
 		} catch( SQLException e ) {
 			e.printStackTrace();
 			System.out.println( "Could not check out book at this time.\nError:\t" + e );
 		}
-		
+
 		//UPDATE
 		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE title = ?";
 		PreparedStatement stmt2;
-		
+
 		/*try {
 			stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
-			
+
 			stmt2.setString(2, title);
-			
+
 			stmt2.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -259,7 +259,7 @@ public class BookPersistImpl {
 	}
 
 	public static List<Book> getWaitlist(String username) {
-		
+
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
@@ -300,11 +300,11 @@ public class BookPersistImpl {
 			e.printStackTrace();
 		}
 		return bookList;
-		
+
 	}
-	
-public static List<Book> getCheckedOut(String username){
-		
+
+	public static List<Book> getCheckedOut(String username){
+
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
@@ -343,14 +343,14 @@ public static List<Book> getCheckedOut(String username){
 			e.printStackTrace();
 		}
 		return bookList;
-		
+
 	}
-	
+
 	public static List<Book> getBooksById(int id){
-		
+
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
-		
+
 		String sql = "SELECT * FROM books JOIN authors ON books.Authors_id = authors.id JOIN genres ON books.Genres_type = genres.type WHERE books.id = ?";
 		PreparedStatement stmt = null;
 		try {
@@ -359,7 +359,7 @@ public static List<Book> getCheckedOut(String username){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		StringBuffer query = new StringBuffer(100);
 		StringBuffer condition = new StringBuffer(100);
 
@@ -409,7 +409,6 @@ public static List<Book> getCheckedOut(String username){
 			e.printStackTrace();
 		}
 		return bookList;
-		
-	}
 
+	}
 }

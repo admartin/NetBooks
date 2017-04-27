@@ -8,6 +8,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="js/ajax-query.js"></script>
         <script>
+        
+        
+        
         $(document).ready(function(){
             //listen for clicks on book images
             $('#main').on('click','li',function(){
@@ -17,6 +20,16 @@
 				id : $(this).data('id')
 			};
 			
+			
+			$.ajax({
+			    url: "PopulateSummary",
+			    data: obj,
+			    dataType: "json",
+			    success: summaryParse,
+			    complete: function() {
+				}
+			});
+			
 			$.ajax({
 			    url: "PopulateReviews",
 			    data: obj,
@@ -25,12 +38,12 @@
 			    complete: function() {
 				}
 			});
-				
+			
                 $("#title").text($(this).data('title'));
                 $("#bookimg").attr("src", $(this).data('image'));
                 
                 $("#info").html(
-                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre')
+                    '<p><strong>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</strong></p>'
                 );
 
                  if(($(this).data('copies') - $(this).data('out')) > 0 )
@@ -59,15 +72,29 @@
             
         });
         
+        function summaryParse(responseJson) {
+			if(responseJson != null) {
+	        var descr = $("#summary");
+	        descr.html('<div></div>');
+	        $.each(responseJson, function(key, value) {
+	        	var row = '<p>' + value['desr'] + '</p>';
+				descr.append(row);
+	        });
+	       }
+	    }
+        
         function reviewParse(responseJson) {
 			if(responseJson != null) {
 	        var reviews = $("#reviewtext");
+	        reviews.html('<div></div>');
 	        $.each(responseJson, function(key, value) {
 	        	var row = '<div class="well well-sm"><q>' + value['details'] + '</q><br><div class="text-right">-' + value['username'] + '</div></div>';
-				reviews.html(row);
+				reviews.append(row);
 	        });
 	    }
 	    }
+	    
+	    
         </script>
         
         <!-- favicon-->
@@ -101,7 +128,7 @@
                   <div class="media">
                       <div class="media-body">
                       	<div id="info"></div>
-                      	<q id="summary"></q>
+                      	<div id="summary"></div>
                           <!--pulled from jQuery-->
                       </div>
                       <div class="media-right">
@@ -123,7 +150,7 @@
           </div>
         </div>
         
- <div id="review" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+         <div id="review" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
             <div class="modal-dialog">
             <!-- Modal content-->
                 <div class="modal-content">
@@ -137,7 +164,7 @@
                   <form role="form" action="AddReview" method="post">
                   <textarea name="review" class="form-control" id="inputComment" rows="5"></textarea>
                   	<input type="hidden" value="" name="book_id_review" /><hr/>
-                    <button type="submit"  name="checkout" class="btn btn-success">Order</button>
+                    <button type="submit"  name="checkout" class="btn btn-success">Add</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
                   </form>
                   </div>
@@ -181,7 +208,7 @@
                   <div class="modal-footer">
                   <form role="form" action="AddWaitlist" method="post">
                   	<input type="hidden" value="" name="wait_id" />
-                    <button type="submit" class="btn btn-success">Add</button>
+                    <button type="submit"  data-dismiss="modal" class="btn btn-success">Add</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
                   </form>
                   </div>
@@ -189,7 +216,6 @@
             </div>
         </div>
  
-        
         
         <div id="container">
             

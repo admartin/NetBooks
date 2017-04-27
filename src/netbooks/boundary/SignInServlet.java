@@ -74,9 +74,12 @@ public class SignInServlet extends HttpServlet {
 			}//create new session if a user was logged in prior
 			synchronized(sess){
 				//check if pass is valid
+				boolean pass = false;
 				List<User> ulist = UserLogicImpl.getUserForLogin(username);	
-				if(ulist != null){
+				if(ulist.size() > 0){
 					if(password.equals(ulist.get(0).getPassword())){
+						System.out.println("here");
+						pass = true;
 						sess.setAttribute("username",username);
 						if(ulist.get(0).getSubscription() == 0){
 							sess.setAttribute("premium", false);
@@ -86,13 +89,13 @@ public class SignInServlet extends HttpServlet {
 						}
 						showHomePage(request,response,username);
 					}
+					else{
+						System.out.println("here2");
+						response.sendRedirect("error.html");
+					}
 				}
-				else{
-					DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
-					SimpleHash root = new SimpleHash(db.build());
-					String templateName = "error.ftl";
-					root.put("error","Invalid login.");
-					processor.runTemp(templateName,root,request,response);
+				if(!pass){
+					response.sendRedirect("error.html");
 				}
 			}		
 		}

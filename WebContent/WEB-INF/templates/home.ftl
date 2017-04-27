@@ -8,6 +8,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="js/ajax-query.js"></script>
         <script>
+        
+        
+        
         $(document).ready(function(){
             //listen for clicks on book images
             $('#main').on('click','li',function(){
@@ -17,6 +20,16 @@
 				id : $(this).data('id')
 			};
 			
+			
+			$.ajax({
+			    url: "PopulateSummary",
+			    data: obj,
+			    dataType: "json",
+			    success: summaryParse,
+			    complete: function() {
+				}
+			});
+			
 			$.ajax({
 			    url: "PopulateReviews",
 			    data: obj,
@@ -25,12 +38,12 @@
 			    complete: function() {
 				}
 			});
-				
+			
                 $("#title").text($(this).data('title'));
                 $("#bookimg").attr("src", $(this).data('image'));
                 
                 $("#info").html(
-                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre')
+                    '<p><strong>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</strong></p>'
                 );
 
                  if(($(this).data('copies') - $(this).data('out')) > 0 )
@@ -59,6 +72,17 @@
             
         });
         
+        function summaryParse(responseJson) {
+			if(responseJson != null) {
+	        var descr = $("#summary");
+	        descr.html('<div></div>');
+	        $.each(responseJson, function(key, value) {
+	        	var row = '<p>' + value['desr'] + '</p>';
+				descr.append(row);
+	        });
+	       }
+	    }
+        
         function reviewParse(responseJson) {
 			if(responseJson != null) {
 	        var reviews = $("#reviewtext");
@@ -69,6 +93,8 @@
 	        });
 	    }
 	    }
+	    
+	    
         </script>
         
         <!-- favicon-->
@@ -101,7 +127,7 @@
                   <div class="media">
                       <div class="media-body">
                       	<div id="info"></div>
-                      	<q id="summary"></q>
+                      	<div id="summary"></div>
                           <!--pulled from jQuery-->
                       </div>
                       <div class="media-right">

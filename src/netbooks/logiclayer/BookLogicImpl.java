@@ -6,6 +6,11 @@ import netbooks.persistlayer.BookPersistImpl;
 
 public class BookLogicImpl {
 	
+	public static List<Book> getBooksById(int id)
+	{
+		return BookPersistImpl.getBooksById(id);
+	}
+	
 	public static List<Book> getBooksByGenre(String genre)
 	{
 		return BookPersistImpl.getBooksByGenre(genre);

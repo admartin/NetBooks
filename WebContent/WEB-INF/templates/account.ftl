@@ -110,7 +110,7 @@
               <div class="row">
                     <!-- Category -->
                     <div class="col-md-4">
-                    <h4>Your Books</h4>
+                    <h4>Checked Out Books</h4>
                     </div>
                 </div>
 		</form>
