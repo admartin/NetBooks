@@ -26,17 +26,17 @@ import netbooks.logiclayer.BookLogicImpl;
 @WebServlet("/SignInServlet")
 public class SignInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private TemplateProcessor processor;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SignInServlet() {
-        super();
-    }
-    
-    public void init(ServletConfig config) throws ServletException {
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SignInServlet() {
+		super();
+	}
+
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		processor = new TemplateProcessor(getServletContext());
 	}
@@ -52,60 +52,64 @@ public class SignInServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			if(request.getParameter("login") != null){
-					validateLogin(request,response);
-			}//if came here by login
-			else{
-				showHomePage(request,response);
-			}//if came here by homepage link
+		if(request.getParameter("login") != null){
+			validateLogin(request,response);
+		}//if came here by login
+		else{
+			HttpSession sess = request.getSession(false);
+			showHomePage(request,response,(String)sess.getAttribute("username"));
+		}//if came here by homepage link
 
 	}
-	
+
 	private void validateLogin(HttpServletRequest request, HttpServletResponse response){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+
 		try{
 			HttpSession sess = request.getSession();
 			if(sess != null){
 				sess.invalidate();
-				sess = request.getSession();
+				sess = request.getSession(true);
 			}//create new session if a user was logged in prior
 			synchronized(sess){
-			//check if pass is valid
+				//check if pass is valid
 				List<User> ulist = UserLogicImpl.getUserForLogin(username);	
-				if(ulist == null || !password.equals(ulist.get(0).getPassword())){
+				if(ulist != null){
+					if(password.equals(ulist.get(0).getPassword())){
+						sess.setAttribute("username",username);
+						if(ulist.get(0).getSubscription() == 0){
+							sess.setAttribute("premium", false);
+						}
+						else{
+							sess.setAttribute("premium", true);
+						}
+						showHomePage(request,response,username);
+					}
+				}
+				else{
 					DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 					SimpleHash root = new SimpleHash(db.build());
-					root.put("error","Invalid login information.");
 					String templateName = "error.ftl";
 					root.put("error","Invalid login.");
 					processor.runTemp(templateName,root,request,response);
 				}
-				else{
-					sess.setAttribute("username",username);
-	            	if(ulist.get(0).getSubscription() == 0)
-	            		sess.setAttribute("premium", false);
-	            	else
-	            		sess.setAttribute("premium", true);
-	            	}
-					showHomePage(request,response);
-				}		
+			}		
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public void showHomePage(HttpServletRequest request, HttpServletResponse response){
+
+	public void showHomePage(HttpServletRequest request, HttpServletResponse response,String username){
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "home.ftl";
-		HttpSession sess = request.getSession();
-		
-		
-		root.put("username", sess.getAttribute("username") );
+		HttpSession sess = request.getSession(false);
+
+
+		root.put("username", username);
 		if((Boolean)sess.getAttribute("premium")){
 			root.put("premium",true);
 		}
@@ -131,9 +135,9 @@ public class SignInServlet extends HttpServlet {
 		//get books by genre -romance
 		List<Book> romance = BookLogicImpl.getBooksByGenre("Romance");
 		root.put("romance", romance);
-		
+
 		processor.runTemp(templateName, root, request, response);
 	}
-	
+
 
 }

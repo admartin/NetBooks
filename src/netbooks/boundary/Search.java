@@ -59,13 +59,14 @@ public class Search extends HttpServlet {
 		//		cfg.setLogTemplateExceptions(false);
 	}
 
-	public void runTemplate(HttpServletRequest request, HttpServletResponse response) {
 
+	public void runTemplate(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession sess = request.getSession(false);
 		Template template = null;
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 
-		HttpSession sess = request.getSession(); 
+
 		root.put("username", (String)sess.getAttribute("username"));
 		root.put("premium", (Boolean)sess.getAttribute("premium"));
 
@@ -78,7 +79,7 @@ public class Search extends HttpServlet {
 		
 		byTitle.addAll(byAuthor);
 		
-		if(byTitle.size() > 0){ 
+		if(byTitle != null && byTitle.size() > 0){ 
 			root.put("books",byTitle);
 			try {
 				String templateName = "search.ftl";
@@ -116,5 +117,4 @@ public class Search extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

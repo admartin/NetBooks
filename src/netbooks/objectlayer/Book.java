@@ -4,24 +4,24 @@ import java.util.List;
 import com.google.gson.Gson;
 
 public class Book {
-	private int id;
-	private String title;
-	private int numCopies;
-	private String pubDate;
-	private int numOut;
-	private boolean ebook;
-	private String link;
-	private String cover;
-	private int rating;
-	private Author author;
-	private String genre;
-	private String desr;
-	private List<Review> reviews;
-	private String jsonReview;
+	public int bookid;
+	public String title;
+	public int numCopies;
+	public String pubDate;
+	public int numOut;
+	public boolean ebook;
+	public String link;
+	public String cover;
+	public int rating;
+	public Author author;
+	public String genre;
+	public String desr;
+	public List<Review> reviews;
+	public String jsonReview;
 
 	public Book(int id, String title, int numCopies, String pubDate, int numOut, boolean ebook, String link,
 			String cover, int rating, Author author, String genre, String desr, List<Review> reviews) {
-		this.id = id;
+		this.bookid = id;
 		this.title = title;
 		this.numCopies = numCopies;
 		this.pubDate = pubDate;
@@ -41,14 +41,14 @@ public class Book {
 	 * @return the id
 	 */
 	public int getID() {
-		return id;
+		return bookid;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
 	public void setID(int id) {
-		this.id = id;
+		this.bookid = id;
 	}
 
 	/**
@@ -207,11 +207,19 @@ public class Book {
 		this.desr = desr;
 	}
 	
-	private String convertReviews()
+	public String convertReviews()
 	{ 
 		Gson gson = new Gson();
 		String json = gson.toJson(this.reviews);
 		System.out.println(json);
         return json;
+	}
+
+	public String getJsonReview() {
+		return jsonReview;
+	}
+
+	public void setJsonReview(String jsonReview) {
+		this.jsonReview = jsonReview;
 	}
 }

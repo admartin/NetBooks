@@ -1,6 +1,7 @@
 package netbooks.boundary;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
 import netbooks.logiclayer.BookLogicImpl;
 import netbooks.logiclayer.UserLogicImpl;
+import netbooks.objectlayer.Book;
 
 /**
  * Servlet implementation class Change
@@ -97,5 +99,4 @@ public class Change extends HttpServlet {
 			processor.runTemp(templateName,root,request,response);
 		
 	}
-
 }

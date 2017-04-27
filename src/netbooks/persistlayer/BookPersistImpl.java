@@ -15,6 +15,10 @@ public class BookPersistImpl {
 
 	private static Connection conn = null; //establish connection to db
 
+	public static List<Book> getAllBooks(){
+		return null;
+	}
+	
 	public static List<Book> getBooksByGenre(String genre) {
 
 		try {
@@ -228,8 +232,8 @@ public class BookPersistImpl {
 			}
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
 			
-			stmt1.setString(1, username);
-			stmt1.setInt(2, bookId);
+			stmt1.setString(2, username);
+			stmt1.setInt(1, bookId);
 			
 			stmt1.executeUpdate();
 
@@ -299,7 +303,7 @@ public class BookPersistImpl {
 		
 	}
 	
-	public static List<Book> getCheckedOut(String username){
+public static List<Book> getCheckedOut(String username){
 		
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
@@ -332,7 +336,14 @@ public class BookPersistImpl {
 			e.printStackTrace();
 		}
 
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return bookList;
 		
 	}
+
 }

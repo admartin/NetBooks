@@ -6,18 +6,33 @@
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        
+        <script src="js/ajax-query.js"></script>
         <script>
         $(document).ready(function(){
             //listen for clicks on book images
             $('#main').on('click','li',function(){
+   
+   			
+			var obj = {
+				id : $(this).data('id')
+			};
+			
+			$.ajax({
+			    url: "PopulateReviews",
+			    data: obj,
+			    dataType: "json",
+			    success: reviewParse,
+			    complete: function() {
+				}
+			});
+				
                 $("#title").text($(this).data('title'));
                 $("#bookimg").attr("src", $(this).data('image'));
                 
                 $("#info").html(
-                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '<br>' + $(this).data('descr')
+                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre')
                 );
-                
+
                  if(($(this).data('copies') - $(this).data('out')) > 0 )
 	           {
 	            	$('input[name=book_id]').attr('value', $(this).data('id'))
@@ -32,15 +47,28 @@
 	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#waitlist">Add To Waitlist</button><button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
 	                );
                 }
-                $("#footer").append(
-	                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
-	                );
-                
+                var pdf = $(this).data('pdf');
+                if(typeof pdf != 'undefined' ){
+	                $("#footer").append(
+		                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
+		                );
+                }
                 $('input[name=book_id_review]').attr('value', $(this).data('id'));  
                 $('#myModal').modal('show');
             })
             
         });
+        
+        function reviewParse(responseJson) {
+			if(responseJson != null) {
+	        var reviews = $("#reviewtext");
+	        reviews.html('<div></div>');
+	        $.each(responseJson, function(key, value) {
+	        	var row = '<div class="well well-sm"><q>' + value['details'] + '</q><br><div class="text-right">-' + value['username'] + '</div></div>';
+				reviews.append(row);
+	        });
+	    }
+	    }
         </script>
         
         <!-- favicon-->
@@ -71,15 +99,18 @@
               </div>
               <div class="modal-body">
                   <div class="media">
-                      <div id="info" class="media-body">
+                      <div class="media-body">
+                      	<div id="info"></div>
+                      	<q id="summary"></q>
                           <!--pulled from jQuery-->
                       </div>
                       <div class="media-right">
                         <img id="bookimg" src="" class="media-object" style="width:150px">
                       </div>
                   </div>
+                  <h4 class="text-center">Reviews</h4>
                   <hr style="margin-top:10px;margin-bottom:10px;" >
-                  <div id="reviews">
+                  <div id="reviewtext">
                   		<!-- pulled from jQuery -->
                   </div>
               </div>
@@ -92,26 +123,26 @@
           </div>
         </div>
         
-        <div id="review" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+         <div id="review" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
             <div class="modal-dialog">
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                     <h4 id="title" class="modal-title">Add A Review</h4>
                   </div>
-                  <div class="modal-body">
-                    <form role="form" action="AddReview" method="post">
-                    <input type="hidden" value="" name="book_id_review" />
-                      <div class="form-group">
-                        <textarea name="review" class="form-control" id="inputComment" rows="5"></textarea>
-                      </div>
-                  </div>
+                 
+                  
                   <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-success">Submit</button>
+                  <form role="form" action="AddReview" method="post">
+                  <textarea name="review" class="form-control" id="inputComment" rows="5"></textarea>
+                  	<input type="hidden" value="" name="book_id_review" /><hr/>
+                    <button type="submit"  name="checkout" class="btn btn-success">Add</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                  </div>
                   </form>
+                  </div>
+                  
+                  
                 </div>
             </div>
         </div>
@@ -121,7 +152,7 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                   </div>
                   <div class="modal-body">
                     <p>Are you sure you would like to check out this book?</p>
@@ -129,7 +160,7 @@
                   <div class="modal-footer">
                   <form role="form" action="CheckOut" method="post">
                   	<input type="hidden" value="" name="book_id" />
-                    <button type="submit"  name="checkout" data-dismiss="modal" class="btn btn-success">Order</button>
+                    <button type="submit"  name="checkout" class="btn btn-success">Order</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
                   </form>
                   </div>
@@ -142,7 +173,7 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                   </div>
                   <div class="modal-body">
                     <p>Are you sure you would like to add this book to your waitlist?</p>
@@ -165,9 +196,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                    	<form action="SigninServlet" method="post">
-                        <a class="navbar-brand" href="SigninServlet">Netbooks</a>
-                        </form>
+                        <a class="navbar-brand" href="Home">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -202,7 +231,11 @@
                     <div class="category">
                         <ul class="categoryRow clearfix">
                         <#list scifi as book>
-                            <li class="book" data-id="${book.getID()}"  data-descr="${book.getDesr()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <li class="book" 
+                            <#if book.jsonReview??>
+                            	data-reviews="${book.jsonReview}"
+                            </#if>
+                            data-id="${book.getID()}" data-summary="${book.getDesr()}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
                             </#if>
@@ -221,8 +254,11 @@
                     <div class="categoryTitle">Adventure</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list adven as book>	
-                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                        <#list adven as book>
+                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if book.jsonReview??>
+                            	data-reviews="${book.jsonReview}"
+                            </#if>
                             <#if premium>
                             	data-sub="1"
                             </#if>
@@ -230,55 +266,58 @@
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
                         </ul>
-                    </div>                    
-                </div> 
+                    </div>   
                 
                 <!-- Category -->
                     <div class="categoryTitle">Drama</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
                         <#list drama as book>
-                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            </#if> 
+                            <#if book.jsonReview??>
+                            	data-reviews="${book.jsonReview}"
                             </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
                         </ul>
-                    </div>                    
-                </div> 
+                    </div>   
                 
                 <!-- Category -->
                     <div class="categoryTitle">Horror</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
                         <#list horror as book>
-                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            </#if> 
+                            <#if book.jsonReview??>
+                            	data-reviews="${book.jsonReview}"
                             </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
                         </ul>
-                    </div>                    
-                </div> 
+                    </div>   
                 
                 <!-- Category -->
                     <div class="categoryTitle">Romance</div>
@@ -288,6 +327,9 @@
                             <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
+                            </#if> 
+                            <#if book.jsonReview??>
+                            	data-reviews="${book.jsonReview}"
                             </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
@@ -298,8 +340,7 @@
                             </li>
                         </#list>
                         </ul>
-                    </div>                    
-                </div> 
+                    </div>         
                 
             </div>            
         </div> <!--! end of #container -->        

@@ -6,21 +6,21 @@ public class Review {
 	private int rating;
 	private String details;
 	private int bookID;
-	private User user;
+	private String username;
 	
-	public Review(int rating, String details, int bookID, User username) {
+	public Review(int rating, String details, int bookID, String username) {
 		this.rating = rating;
 		this.details = details;
 		this.bookID = bookID;
-		this.user = username;
+		this.username = username;
 	}
 	
-	public Review(int id, int rating, String details, int bookID, User username) {
+	public Review(int id, int rating, String details, int bookID, String username) {
 		this.id = id;
 		this.rating = rating;
 		this.details = details;
 		this.bookID = bookID;
-		this.user = username;
+		this.username = username;
 	}
 
 	/**
@@ -82,15 +82,15 @@ public class Review {
 	/**
 	 * @return the username
 	 */
-	public User getUser() {
-		return user;
+	public String getUser() {
+		return username;
 	}
 
 	/**
 	 * @param username the username to set
 	 */
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(String user) {
+		this.username = user;
 	}
 	
 }

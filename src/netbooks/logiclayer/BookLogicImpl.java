@@ -2,7 +2,7 @@ package netbooks.logiclayer;
 
 import netbooks.objectlayer.Book;
 import java.util.List;
-import netbooks.persist.BookPersistImpl;
+import netbooks.persistlayer.BookPersistImpl;
 
 public class BookLogicImpl {
 	
@@ -19,6 +19,11 @@ public class BookLogicImpl {
 	public static List<Book> getBooksByAuthor(String author)
 	{
 		return BookPersistImpl.getBooksByAuthor(author);
+	}
+	
+	public static List<Book> getAllBooks()
+	{
+		return BookPersistImpl.getAllBooks();
 	}
 	
 	public static void checkOutBook(String username, int book_id)

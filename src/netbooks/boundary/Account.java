@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.SimpleHash;
-
+import netbooks.objectlayer.Book;
 import netbooks.objectlayer.User;
 import netbooks.logiclayer.UserLogicImpl;
 import netbooks.logiclayer.BookLogicImpl;
@@ -51,12 +51,14 @@ public class Account extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sess = request.getSession();
+		HttpSession sess = request.getSession(false);
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String user = (String)sess.getAttribute("username");
 		boolean subscrip;
 		
+		List<Book> checkout = BookLogicImpl.getCheckedOutBooks(user);
+
 		root.put("username", user);
 		User userob = UserLogicImpl.getFullUserInfo(user).get(0);
 		root.put("email",userob.getEmail());
@@ -71,7 +73,8 @@ public class Account extends HttpServlet {
 			subscrip = false;
 		}
 
-		root.put("subscription",subscrip);
+		root.put("premium",subscrip);
+		root.put("checkedout",checkout);
 		String templateName = "account.ftl";
 		processor.runTemp(templateName,root,request,response);
 	}

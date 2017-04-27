@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 import netbooks.objectlayer.Book;
 import netbooks.objectlayer.Review;
@@ -41,8 +41,8 @@ public class ReviewPersistImpl {
 			if(review.getBookID() != -1)
 				stmt.setInt(3, review.getBookID());
 
-			if(review.getUser().getUsername() != null)
-				stmt.setString(4, review.getUser().getUsername());
+			if(review.getUser() != null)
+				stmt.setString(4, review.getUser());
 
 			stmt.executeUpdate();
 
@@ -50,6 +50,12 @@ public class ReviewPersistImpl {
 		catch( SQLException e ) {
 			e.printStackTrace();
 			System.out.println( "Review.save: failed to save a Review: " + e );
+		}
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -81,13 +87,18 @@ public class ReviewPersistImpl {
 					bookId = rs.getInt(4);
 					username = rs.getString(5);
 
-					User temp = new User(username, null, null, null, null, null, null, null, -1, -1, -1, null, null, null);
-					Review review = new Review(id, rating, details, bookId, temp);
+					
+					Review review = new Review(id, rating, details, bookId, username);
 
 					reviews.add(review);
 				}
 
-		
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			return reviews;
 		}
 		catch( SQLException e ) {

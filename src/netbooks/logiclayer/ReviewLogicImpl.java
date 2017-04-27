@@ -10,9 +10,12 @@ public class ReviewLogicImpl {
 
 	public static void createReview(int id, int rating, String details, int bookID, String username)
 	{
-		User user = UserLogicImpl.getFullUserInfo(username).get(0);
-		Review review = new Review(-1, rating, details, bookID, user);
+		Review review = new Review(-1, rating, details, bookID, username);
 		ReviewPersistImpl.createReview(review);
+	}
+	
+	public static List<Review> selectReviews(int bookid){
+		return ReviewPersistImpl.selectReviewsById(bookid);
 	}
 	
 }

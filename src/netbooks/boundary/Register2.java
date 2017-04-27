@@ -1,8 +1,6 @@
 package netbooks.boundary;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,26 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import netbooks.logiclayer.UserLogicImpl;
-import netbooks.objectlayer.User;
 
 /**
- * Servlet implementation class Register
+ * Servlet implementation class Register2
  */
-@WebServlet("/Register")
-public class Register extends HttpServlet {
+@WebServlet("/Register2")
+public class Register2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Register() {
+    public Register2() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
@@ -59,7 +57,8 @@ public class Register extends HttpServlet {
 		else{
 			subscrip = 1;
 		}
-		if(UserLogicImpl.getUserForLogin(info[0]).size() > 0){
+
+		if(UserLogicImpl.getUserForLogin(info[0]) != null){
 			response.sendRedirect("register.html");
 		}
 		else{

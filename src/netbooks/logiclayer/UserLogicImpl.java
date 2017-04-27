@@ -1,7 +1,7 @@
 package netbooks.logiclayer;
 
 import netbooks.objectlayer.User;
-import netbooks.persist.UserPersistImpl;
+import netbooks.persistlayer.UserPersistImpl;
 import java.util.List;
 
 public class UserLogicImpl {
@@ -48,10 +48,5 @@ public class UserLogicImpl {
 	public static void addWaitlistEntry(String username, int book_id)
 	{
 		UserPersistImpl.addWaitlistEntry(username, book_id);
-	}
-	
-	public static void deleteUser(String username) 
-	{
-		UserPersistImpl.deleteUser(username);
 	}
 }

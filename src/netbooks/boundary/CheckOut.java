@@ -49,11 +49,12 @@ public class CheckOut extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("book_id"));
-		//value for book_id is currently not filled out in home.ftl
+int id = Integer.parseInt(request.getParameter("book_id"));
+		
 		HttpSession sess = request.getSession();
 		String username = (String)sess.getAttribute("username");
 		BookLogicImpl.checkOutBook(username, id);
+		System.out.println("i'm in checkout");
 		
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
