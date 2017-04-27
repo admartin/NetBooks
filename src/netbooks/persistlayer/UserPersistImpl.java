@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -188,6 +188,7 @@ public class UserPersistImpl {
 
 		try {
 			stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
+			stmt2.setString(1,  password);
 			stmt2.setString(2, username);    
 			stmt2.executeUpdate();
 			
@@ -274,7 +275,7 @@ public class UserPersistImpl {
 		}
 
 	}
-	
+
 	public static void deleteUser(String username) {
 
 		try {
