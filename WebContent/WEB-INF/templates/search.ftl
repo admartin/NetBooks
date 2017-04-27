@@ -14,37 +14,31 @@
                 $("#bookimg").attr("src", $(this).data('image'));
                 
                 $("#info").html(
-                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</p>'
-                    + '<q>' + $(this).data('descr') + '</q>'
+                    '<p>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre')
                 );
                 
-                var json = JSON.parse($(this).data('reviews'));
-                for(i = 0; i < json.length; i++)
-                {
-	                $("#reviews").append(
-	                
-	                    '<div class="well well-sm">' + json[i].details + '	</div>'
-	                );
-	            }
-	            
-	            if(($(this).data('copies') - $(this).data('out')) > 0 )
-	            {
-		            $("#footer").append(
-	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button>'
+                $("#info").append(
+                	'<q>' + $(this).data('summary') + '</q>'
+                );
+                 if(($(this).data('copies') - $(this).data('out')) > 0 )
+	           {
+	            	$('input[name=book_id]').attr('value', $(this).data('id'))
+		            $("#footer").html(
+	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button> <button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
 	                );
                 }
                 else
                 {
-                	$("#footer").append(
-	                    '<button id="order" type="button" class="btn btn-success" data-dismiss="modal">Add to Waitlist</button>'
+                	$('input[name=wait_id]').attr('value', $(this).data('id'))
+                	$("#footer").html(
+	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#waitlist">Add To Waitlist</button><button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
 	                );
                 }
-                
-                if(($(this).data('ebook'))
                 $("#footer").append(
 	                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
 	                );
-	            $('input[name=book_id_review]').attr('value', $(this).data('id'));    
+                
+                $('input[name=book_id_review]').attr('value', $(this).data('id'));  
                 $('#myModal').modal('show');
             })
             
@@ -68,6 +62,106 @@
     <body>  
         
        
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" tabindex="-1" data-focus-on="input:first" data-replace="true" style="display: none;"]>
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="title" class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                  <div class="media">
+                      <div id="info" class="media-body">
+                          <!--pulled from jQuery-->
+                      </div>
+                      <div class="media-right">
+                        <img id="bookimg" src="" class="media-object" style="width:150px">
+                      </div>
+                  </div>
+                  <hr style="margin-top:10px;margin-bottom:10px;" >
+                  <div id="reviews">
+                  		<!-- pulled from jQuery -->
+                  </div>
+              </div>
+              <div id="footer" class="modal-footer">
+                <!-- jQuery -->
+               
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <div id="review" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                    <h4 id="title" class="modal-title">Add A Review</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form role="form" action="AddReview" method="post">
+                    <input type="hidden" value="" name="book_id_review" />
+                      <div class="form-group">
+                        <textarea name="review" class="form-control" id="inputComment" rows="5"></textarea>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-success">Submit</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+        
+        <div id="confirmation" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to check out this book?</p>
+                  </div>
+                  <div class="modal-footer">
+                  <form role="form" action="CheckOut" method="post">
+                  	<input type="hidden" value="" name="book_id" />
+                    <button type="submit"  name="checkout" data-dismiss="modal" class="btn btn-success">Order</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="waitlist" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to add this book to your waitlist?</p>
+                  </div>
+                  <div class="modal-footer">
+                  <form role="form" action="AddWaitlist" method="post">
+                  	<input type="hidden" value="" name="wait_id" />
+                    <button type="submit"  data-dismiss="modal" class="btn btn-success">Add</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+ 
+        
         
         <div id="container">
             
@@ -110,16 +204,16 @@
                     <!-- Category -->
                     <div class="category">
                         <ul class="content">
-                           <#list books as book>	
-                            <li class="book box" data-image="${book.cover}" data-title="${book.title}" 
-							<#if premium>
+                           <#list books as book>
+                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
                             	data-sub="1"
                             </#if>
-                                                        
                             <#if book.ebook>
                             	data-pdf="${book.link}"
+                            	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
