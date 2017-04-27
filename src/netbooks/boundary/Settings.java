@@ -78,6 +78,11 @@ public class Settings extends HttpServlet {
 			root.put("username",(String)sess.getAttribute("username"));
 			processor.runTemp(templateName,root,request,response);
 		}
+		else if (option.equals("delete")){
+			String templateName = "delete.ftl";
+			root.put("username",(String)sess.getAttribute("username"));
+			processor.runTemp(templateName,root,request,response);
+		}
 	}
 
 }
