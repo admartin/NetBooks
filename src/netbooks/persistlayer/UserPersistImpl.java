@@ -274,5 +274,43 @@ public class UserPersistImpl {
 		}
 
 	}
+	
+	public static void deleteUser(String username) {
+
+		try {
+			conn = DbUtils.connect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String deleteReviewsSql = "DELETE FROM reviews WHERE Users_username = ?";
+		PreparedStatement stmt1;
+
+		try {
+			stmt1 = (PreparedStatement) conn.prepareStatement(deleteReviewsSql);
+
+			stmt1.setString(1, username);
+
+			stmt1.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println( "Could not delete user at this time.\nError:\t" + e );
+		}
+		
+		String deleteUserSql = "DELETE FROM users WHERE username = ?";
+		PreparedStatement stmt2;
+		
+		try {
+			stmt2 = (PreparedStatement) conn.prepareStatement(deleteUserSql);
+			
+			stmt2.setString(1,  username);
+			
+			stmt2.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Could not delete user at this time. \nError\t" + e);
+		}
+
+	}
 
 }
