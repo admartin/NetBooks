@@ -304,7 +304,7 @@ public class BookPersistImpl {
 		List<Book> bookList = new ArrayList<Book>();
 		List<Review> reviewList = new ArrayList<Review>();
 
-		String sql = "SELECT books.title FROM checkedout JOIN books ON checkedout.books_id = books.id WHERE checkedout.Users_username = ? ORDER BY id";
+		String sql = "SELECT books.cover FROM checkedout JOIN books ON checkedout.books_id = books.id WHERE checkedout.Users_username = ? ORDER BY id";
 		PreparedStatement stmt = null;
 		try {
 			conn = DbUtils.connect();
@@ -319,11 +319,11 @@ public class BookPersistImpl {
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
 			while( rs.next() ) {
-				String title = rs.getString(1);
+				String cover = rs.getString(1);
 
 				Review review = new Review(-1, null, -1, null);
 				reviewList.add(review);
-				Book book = new Book(-1, title, -1, null, -1, false, null, null, -1, null, null, null, reviewList);
+				Book book = new Book(-1, null, -1, null, -1, false, null, cover, -1, null, null, null, reviewList);
 				bookList.add(book);
 			}
 
@@ -335,5 +335,4 @@ public class BookPersistImpl {
 		return bookList;
 		
 	}
-
 }
