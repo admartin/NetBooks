@@ -217,7 +217,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}
+                            	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -237,7 +237,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}
+                            	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -258,7 +258,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}
+                            	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -279,7 +279,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}
+                            	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -300,7 +300,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}
+                            	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
