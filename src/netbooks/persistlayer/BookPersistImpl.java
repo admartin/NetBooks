@@ -1,4 +1,4 @@
-package netbooks.persist;
+package netbooks.persistlayer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,7 +50,10 @@ public class BookPersistImpl {
 				String genreCol = rs.getString(12);
 				String fname = rs.getString(14);
 				String lname = rs.getString(15);
-				String birthday = rs.getDate(16).toString();
+
+				String birthday = null;
+				if(rs.getDate(16) != null)
+					birthday = rs.getDate(16).toString();
 				String gender = rs.getString(17);
 				String bio = rs.getString(18);
 
@@ -65,10 +68,16 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return bookList;
 	}
 
-	public static List<Book> getBooksByTitle(String title) {
+	public static List<Book> getBooksByTitle(String title){
 
 		try {
 			conn = DbUtils.connect();
@@ -126,7 +135,12 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return bookList;
 	}
 
@@ -190,7 +204,12 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return bookList;
 	}
 
@@ -209,8 +228,8 @@ public class BookPersistImpl {
 			}
 			stmt1 = (PreparedStatement) conn.prepareStatement(insertSql);
 			
-			stmt1.setString(2, username);
-			stmt1.setInt(1, bookId);
+			stmt1.setString(1, username);
+			stmt1.setInt(2, bookId);
 			
 			stmt1.executeUpdate();
 
@@ -220,19 +239,19 @@ public class BookPersistImpl {
 		}
 		
 		//UPDATE
-		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE id = ?";
+		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE title = ?";
 		PreparedStatement stmt2;
 		
-		try {
+		/*try {
 			stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
 			
-			stmt2.setInt(1, bookId);
+			stmt2.setString(2, title);
 			
 			stmt2.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
 			System.out.println( "Could not check out book at this time.\nError:\t" + e );
-		}
+		}*/
 	}
 
 	public static List<Book> getWaitlist(String username) {
@@ -251,7 +270,7 @@ public class BookPersistImpl {
 
 		try {
 			stmt = (PreparedStatement) conn.prepareStatement(sql);
-			stmt.setString(2, username);
+			stmt.setString(1, username);
 			stmt.executeQuery();
 			ResultSet rs = stmt.getResultSet();
 			while( rs.next() ) {
@@ -270,7 +289,12 @@ public class BookPersistImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return bookList;
 		
 	}
