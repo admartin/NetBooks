@@ -35,4 +35,9 @@ public class BookLogicImpl {
 	{
 		return BookPersistImpl.getWaitlist(username);
 	}
+	
+	public static List<Book> getCheckedOutBooks(String username)
+	{
+		return BookPersistImpl.getCheckedOut(username);
+	}
 }
