@@ -54,6 +54,7 @@ public class Change extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		HttpSession sess = request.getSession();
 		String user = (String)sess.getAttribute("username");
+		boolean userDeleted = false;
 		if(request.getParameter("passwordbutton")!=null){
 			UserLogicImpl.updatePassword(user,request.getParameter("password"));
 		}
@@ -75,6 +76,12 @@ public class Change extends HttpServlet {
 		else if(request.getParameter("emailbutton")!=null){
 			UserLogicImpl.updateEmail(user,request.getParameter("email"));
 		}
+		else if (request.getParameter("deletebutton") != null) {
+			UserLogicImpl.deleteUser(user);
+			userDeleted=true;
+		}
+		
+		if (!userDeleted) {
 		
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
@@ -102,6 +109,11 @@ public class Change extends HttpServlet {
 		root.put("checkedout",checkout);
 		String templateName = "account.ftl";
 		processor.runTemp(templateName,root,request,response);
+			
+		}
+		else {
+			response.sendRedirect("index.html");
+		}
 		
 	}
 }
