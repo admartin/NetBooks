@@ -44,6 +44,7 @@
                 $("#footer").append(
 	                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
 	                );
+	            $('input[name=book_id_review]').attr('value', $(this).data('id'));    
                 $('#myModal').modal('show');
             })
             
@@ -104,16 +105,17 @@
                     <h4 id="title" class="modal-title">Add A Review</h4>
                   </div>
                   <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="AddReview" method="post">
+                    <input type="hidden" value="" name="book_id_review"></input>
                       <div class="form-group">
                         <textarea class="form-control" id="inputComment" rows="5"></textarea>
                       </div>
-                    </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-success">Submit</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
                   </div>
+                  </form>
                 </div>
             </div>
         </div>
@@ -129,8 +131,33 @@
                     <p>Are you sure you would like to check out this book?</p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-success">Order</button>
+                  <form role="form" action="CheckOut" method="post">
+                  	<input type="hidden" value="" name="book_id" />
+                    <button type="submit"  name="checkout" data-dismiss="modal" class="btn btn-success">Order</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        
+                <div id="waitlist" class="modal fade" tabindex="-1" data-focus-on="input:first" style="display: none;">
+            <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you would like to add this book to your waitlist?</p>
+                  </div>
+                  <div class="modal-footer">
+                  <form role="form" action="AddWaitlist" method="post">
+                  	<input type="hidden" value="" name="wait_id" />
+                    <button type="submit"  data-dismiss="modal" class="btn btn-success">Add</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                  </form>
                   </div>
                 </div>
             </div>
@@ -150,16 +177,17 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> ${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Your Account</a></li>
-                                <li><a href="settings.html">Settings</a></li>
+                            <form method="post" action="Account">
+                                <li><a href="Account">Your Account</a></li>
+                                </form>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
                           </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
+                    <form class="navbar-form navbar-right" action="Search" method="post">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" name="search" placeholder="Search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
@@ -177,16 +205,18 @@
                     <!-- Category -->
                     <div class="category">
                         <ul class="content">
-                           <#list scifi>
-						<#items as book>	
-                            <li class="book box" data-ebook="${book.ebook}" data-sub="${premium}" data-image="${book.cover}" data-title="${book.title}" data-reviews="${book.jsonReview} 
-                            <#if book.ebook>
-                            	data-pdf="${book.link}
+                           <#list books as book>	
+                            <li class="book box" data-image="${book.cover}" data-title="${book.title}" 
+							<#if premium>
+                            	data-sub="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                                        
+                            <#if book.ebook>
+                            	data-pdf="${book.link}"
+                            </#if>
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
-                        </#items>
                         </#list>
                         </ul>
                     </div>   
@@ -194,12 +224,6 @@
                 </div>    
             </div>            
         </div> <!--! end of #container -->        
-
-        <!-- Add your site or application content here -->
-        <script src="js/app.js"></script>
-        <script>  
-            //Kick start app
-            App.startup();
-        </script>        
+      
     </body>
 </html>
