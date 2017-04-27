@@ -6,6 +6,11 @@ import java.util.List;
 
 public class UserLogicImpl {
 	
+	public static void deleteUser(String username) 
+	 {
+	 		UserPersistImpl.deleteUser(username);
+	 }
+	
 	public static List<User> getUserForLogin(String username)
 	{
 		return UserPersistImpl.getUserForLogin(username);
@@ -48,10 +53,5 @@ public class UserLogicImpl {
 	public static void addWaitlistEntry(String username, int book_id)
 	{
 		UserPersistImpl.addWaitlistEntry(username, book_id);
-	}
-	
-	public static void deleteUser(String username) 
-	{
-		UserPersistImpl.deleteUser(username);
 	}
 }

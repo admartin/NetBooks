@@ -56,13 +56,13 @@
             
             <div class="container">
                 <div class="row">
-                <div class="col-sm-offset-3 col-sm-6"  style="margin-top:150px">
+                <div class="col-sm-offset-3 col-sm-6">
                   <h3 align="center">Change Subscription</h3>
                 </div>
               </div>
                 <form action="Change" method="post">
                     <div class="row">
-                        <div class="col-sm-offset-3 col-sm-6">
+                        <div class="row" align="center">
 		                    <div class="input-group" align="center">
 		                        <label class="radio-inline">
 		                          <input type="radio" value="base" name="optradio" checked>Base Subscription
@@ -71,6 +71,7 @@
 		                          <input type="radio" name="optradio">Premium Subscription
 		                        </label>
 		                      </div>
+		                  </div>
                             <div class="row" align="center" style="margin-top:10px">
                                <input type="submit"  class="btn btn-success" name="subscriptionbutton" value="Submit">
                                <a href="Account"  role="button" class="btn btn-danger" >Cancel</a>

@@ -7,96 +7,9 @@
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="js/ajax-query.js"></script>
-        <script>
-         
-        $(document).ready(function(){
-            //listen for clicks on book images
-            $('#main').on('click','li',function(){
-   
-   			
-			var obj = {
-				id : $(this).data('id')
-			};
-			
-			
-			$.ajax({
-			    url: "PopulateSummary",
-			    data: obj,
-			    dataType: "json",
-			    success: summaryParse,
-			    complete: function() {
-				}
-			});
-			
-			$.ajax({
-			    url: "PopulateReviews",
-			    data: obj,
-			    dataType: "json",
-			    success: reviewParse,
-			    complete: function() {
-				}
-			});
-			
-                $("#title").text($(this).data('title'));
-                $("#bookimg").attr("src", $(this).data('image'));
+        
+        <script src="js/book-info.js"></script>
                 
-                $("#info").html(
-                    '<p><strong>Author: ' + $(this).data('author') + '<br>Year: ' + $(this).data('year') + '<br>Genre: ' + $(this).data('genre') + '</strong></p>'
-                );
-	
-				if($(this).data('sub') == 1){
-                 if(($(this).data('copies') - $(this).data('out')) > 0 )
-	           {
-	            	$('input[name=book_id]').attr('value', $(this).data('id'))
-		            $("#footer").html(
-	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#confirmation">Order Copy</button> <button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
-	                );
-                }
-                else
-                {
-                	$('input[name=wait_id]').attr('value', $(this).data('id'))
-                	$("#footer").html(
-	                    '<button id="order" type="button" class="btn btn-success" data-toggle="modal" href="#waitlist">Add To Waitlist</button><button id="reviewbtn" type="button" class="btn btn-success"  data-toggle="modal" href="#review">Add a Review</button>'
-	                );
-                }
-                }
-                var pdf = $(this).data('pdf');
-                if(typeof pdf != 'undefined' ){
-	                $("#footer").append(
-		                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
-		                );
-                }
-                $('input[name=book_id_review]').attr('value', $(this).data('id'));  
-                $('#myModal').modal('show');
-            })
-            
-        });
-        
-        function summaryParse(responseJson) {
-			if(responseJson != null) {
-	        var descr = $("#summary");
-	        descr.html('<div></div>');
-	        $.each(responseJson, function(key, value) {
-	        	var row = '<p>' + value['desr'] + '</p>';
-				descr.append(row);
-	        });
-	       }
-	    }
-        
-        function reviewParse(responseJson) {
-			if(responseJson != null) {
-	        var reviews = $("#reviewtext");
-	        reviews.html('<div></div>');
-	        $.each(responseJson, function(key, value) {
-	        	var row = '<div class="well well-sm"><q>' + value['details'] + '</q><br><div class="text-right">-' + value['username'] + '</div></div>';
-				reviews.append(row);
-	        });
-	    }
-	    }
-	    
-	    
-        </script>
-        
         <!-- favicon-->
         <link rel="icon" href="http://www.iconsdb.com/icons/preview/green/book-xxl.png">
         
@@ -126,9 +39,12 @@
               <div class="modal-body">
                   <div class="media">
                       <div class="media-body">
-                      	<div id="info"></div>
+                      	<strong><p id="info">
+                      		<div id="author"></div>
+                      		<div id="year"></div>
+                      		<div id="genre"></div>
+                      	</p></strong>
                       	<div id="summary"></div>
-                          <!--pulled from jQuery-->
                       </div>
                       <div class="media-right">
                         <img id="bookimg" src="" class="media-object" style="width:150px">
@@ -256,23 +172,18 @@
                     <div class="categoryTitle">Sci-Fi</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list scifi as book>
-                            <li class="book" 
-                            <#if book.jsonReview??>
-                            	data-reviews="${book.jsonReview}"
-                            </#if>
-                            data-id="${book.getID()}" data-summary="${book.getDesr()}" data-image="${book.cover}" data-title="${book.title}" 
+                        <#list scifi as book>	
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}"
                             <#if premium>
                             	data-sub="1"
-                            	
                             <#else>
                             	data-sub="0"
-                            </#if>
+                            </#if> 
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -283,22 +194,18 @@
                     <div class="categoryTitle">Adventure</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list adven as book>
-                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
-                            <#if book.jsonReview??>
-                            	data-reviews="${book.jsonReview}"
-                            </#if>
+                        <#list adven as book>	
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}"
                             <#if premium>
                             	data-sub="1"
                             <#else>
                             	data-sub="0"
-                            </#if>
-                            
+                            </#if> 
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -309,22 +216,18 @@
                     <div class="categoryTitle">Drama</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list drama as book>
-                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
+                        <#list drama as book>	
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}"
                             <#if premium>
                             	data-sub="1"
-                            	
                             <#else>
                             	data-sub="0"
                             </#if> 
-                            <#if book.jsonReview??>
-                            	data-reviews="${book.jsonReview}"
-                            </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -335,22 +238,18 @@
                     <div class="categoryTitle">Horror</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list horror as book>
-                            <li class="book" data-id="${book.getID()}"  data-summary="${book.desr}" data-image="${book.cover}" data-title="${book.title}" 
+                        <#list horror as book>	
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}"
                             <#if premium>
                             	data-sub="1"
-                            	
                             <#else>
                             	data-sub="0"
                             </#if> 
-                            <#if book.jsonReview??>
-                            	data-reviews="${book.jsonReview}"
-                            </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>
@@ -362,21 +261,17 @@
                     <div class="category">
                         <ul class="categoryRow clearfix">
                         <#list romance as book>	
-                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}"
                             <#if premium>
                             	data-sub="1"
-                            	
                             <#else>
                             	data-sub="0"
                             </#if> 
-                            <#if book.jsonReview??>
-                            	data-reviews="${book.jsonReview}"
-                            </#if>
                             <#if book.ebook>
                             	data-pdf="${book.link}"
                             	data-ebook="1"
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#list>

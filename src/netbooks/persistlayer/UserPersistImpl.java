@@ -80,9 +80,9 @@ public class UserPersistImpl {
 			while( rs.next() ) {
 				String user = rs.getString(1);
 				String password = rs.getString(2);
-				String fname = rs.getString(3);
-				String lname = rs.getString(4); //some of these are probably off, I don't think my 
-				String email = rs.getString(5);//database is up to date with correct columns
+				String fname = rs.getString(4);
+				String lname = rs.getString(5); //some of these are probably off, I don't think my 
+				String email = rs.getString(3);//database is up to date with correct columns
 				String birthdate = rs.getString(6);
 				String address = rs.getString(7);
 				int zipcode = rs.getInt(8);

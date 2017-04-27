@@ -70,6 +70,7 @@
               </div>
               <div class="row">
                   <div class="col-md-2 col-md-offset-2">${username}</div>
+                  <div class=" col-md-2 pull-right text-right"><a href="Settings?opt=delete" style="color:red">Delete User</a></div>
               </div>
 	      <form action="Settings" method="post">
               <div class="row">
@@ -105,10 +106,6 @@
                   </div>
                 </div>
                 <div class="row">
-                <hr style="margin-top:10px;margin-bottom:10px;" >
-              </div>
-	      <div class="col-md-2 pull-right text-right"><a href="Settings?opt=delete">Delete User</a></div>
-              <div class="row">
                 <hr style="margin-top:10px;margin-bottom:10px;" >
               </div>
               <div class="row">

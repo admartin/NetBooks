@@ -56,19 +56,17 @@
             
             <div class="container">
                 <div class="row">
-                <div class="col-sm-offset-3 col-sm-6">
+                <div class="row" align="center">
                   <h3>Delete User</h3>
                 </div>
               </div>
                 <form method="post" action="Change">
-                    <div class="row">
-                        <div class="col-sm-offset-3 col-sm-6">
+                    <div class="row" align="center">
                         	Are you sure you want to delete the account?
                             <div class="row" align="center">
                                <input type="submit"  class="btn btn-success" name="deletebutton" value="Delete">
-                               <a role="button" class="btn btn-danger" >Cancel</a>
+                               <a  href="Account" role="button" class="btn btn-danger" >Cancel</a>
                             </div>
-                        </div>
                     </div>
                 </form>
             </div> <!--! end of #container -->        
