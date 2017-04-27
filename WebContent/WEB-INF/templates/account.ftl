@@ -107,6 +107,10 @@
                 <div class="row">
                 <hr style="margin-top:10px;margin-bottom:10px;" >
               </div>
+	      <div class="col-md-2 pull-right text-right"><a href="Settings?opt=delete">Delete User</a></div>
+              <div class="row">
+                <hr style="margin-top:10px;margin-bottom:10px;" >
+              </div>
               <div class="row">
                     <!-- Category -->
                     <div class="col-md-4">
