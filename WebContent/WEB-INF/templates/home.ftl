@@ -46,6 +46,7 @@
                 $("#footer").append(
 	                    '<a href="' + $(this).data('pdf') + ' " role="button" class="btn btn-success">Read Now</a>'
 	                );
+	            $('input[name=book_id_review]').attr('value', $(this).data('id'));    
                 $('#myModal').modal('show');
             })
             
@@ -111,15 +112,16 @@
                   </div>
                   <div class="modal-body">
                     <form role="form" action="AddReview" method="post">
+                    <input type="hidden" value="" name="book_id_review" />
                       <div class="form-group">
-                        <textarea class="form-control" id="inputComment" rows="5"></textarea>
+                        <textarea name="review" class="form-control" id="inputComment" rows="5"></textarea>
                       </div>
-                    </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-success">Submit</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
                   </div>
+                  </form>
                 </div>
             </div>
         </div>
@@ -137,7 +139,7 @@
                   <div class="modal-footer">
                   <form role="form" action="CheckOut" method="post">
                   	<input type="hidden" value="" name="book_id" />
-                    <button type="submit"  data-dismiss="modal" class="btn btn-success">Order</button>
+                    <button type="submit"  name="checkout" data-dismiss="modal" class="btn btn-success">Order</button>
                     <button type="button" data-dismiss="modal" class="btn btn-danger">Cancel</button>
                   </form>
                   </div>
@@ -173,23 +175,24 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="home.html">Netbooks</a>
+                    	<form action="SigninServlet" method="post">
+                        <a class="navbar-brand" href="SigninServlet">Netbooks</a>
+                        </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> ${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Your Account</a></li>
-                                <li><a href="settings.html">Settings</a></li>
+                                <li><a href="Account?user=${username}">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
                           </li>
                     </ul>
-                    <form class="navbar-form navbar-right">
+                    <form class="navbar-form navbar-right" action="Search" method="post">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" name="search" class="form-control" placeholder="Search">
                                 <div class="input-group-btn">
                                     <button class="btn btn-default" type="submit">
                                         <i class="glyphicon glyphicon-search"></i>
