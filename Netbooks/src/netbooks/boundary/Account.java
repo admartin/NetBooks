@@ -51,12 +51,11 @@ public class Account extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sess = request.getSession();
+		HttpSession sess = request.getSession(false);
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
-		//String user = (String)sess.getAttribute("username");
-		//above returns null for some reason...
-		String user = request.getParameter("user");
+		String user = (String)sess.getAttribute("username");
+		//String user = request.getParameter("user");
 		boolean subscrip;
 		
 		root.put("username", user);

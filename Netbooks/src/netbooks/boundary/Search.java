@@ -65,7 +65,7 @@ public class Search extends HttpServlet {
 		DefaultObjectWrapperBuilder df = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(df.build());
 
-		HttpSession sess = request.getSession(); 
+		HttpSession sess = request.getSession(false); 
 		root.put("username", (String)sess.getAttribute("username"));
 		root.put("premium", (Boolean)sess.getAttribute("premium"));
 

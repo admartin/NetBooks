@@ -197,7 +197,7 @@ public class BookPersistImpl {
 		return bookList;
 	}
 
-	public static void checkOutBook(String username, int bookId, String title) {
+	public static void checkOutBook(String username, int bookId) {
 
 		//INSERT
 		String insertSql = "INSERT INTO checkedout (Books_id, Users_username) VALUES (?, ?)";            
@@ -226,7 +226,7 @@ public class BookPersistImpl {
 		String updateSql = "UPDATE books SET numOut = numOut - 1 WHERE title = ?";
 		PreparedStatement stmt2;
 		
-		try {
+		/*try {
 			stmt2 = (PreparedStatement) conn.prepareStatement(updateSql);
 			
 			stmt2.setString(2, title);
@@ -235,7 +235,7 @@ public class BookPersistImpl {
 		} catch(SQLException e) {
 			e.printStackTrace();
 			System.out.println( "Could not check out book at this time.\nError:\t" + e );
-		}
+		}*/
 	}
 
 	public static List<Book> getWaitlist(String username) {

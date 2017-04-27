@@ -28,14 +28,14 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="home.html">Netbooks</a>
+                        <a class="navbar-brand" href="SignInServlet?user=${username}">Netbooks</a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span>${username}
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="localhost:8080/Netbooks/Account">Your Account</a></li>
+                                <li><a href="Account?user=${username}">Your Account</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html">Sign Out</a></li>
                             </ul>
@@ -110,7 +110,7 @@
               <div class="row">
                     <!-- Category -->
                     <div class="col-md-4">
-                    <h4>Your Wailisted Books</h4>
+                    <h4>Your Waitlisted Books</h4>
                     </div>
                   <div class="col-md-2 pull-right text-right"><a href="Settings?opt=waitlist">Edit Waitlist</a></div>
                 </div>
@@ -125,7 +125,7 @@
                             <#if book.ebook>
                             	data-pdf="${book.link}
                             </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.year}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
                                 <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
                             </li>
                         </#items>

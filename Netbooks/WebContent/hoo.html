@@ -107,7 +107,7 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                     <h4 id="title" class="modal-title">Add A Review</h4>
                   </div>
                   <div class="modal-body">
@@ -131,7 +131,7 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                   </div>
                   <div class="modal-body">
                     <p>Are you sure you would like to check out this book?</p>
@@ -152,7 +152,7 @@
             <!-- Modal content-->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
                   </div>
                   <div class="modal-body">
                     <p>Are you sure you would like to add this book to your waitlist?</p>
@@ -175,9 +175,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                    	<form action="SigninServlet" method="post">
                         <a class="navbar-brand" href="SigninServlet">Netbooks</a>
-                        </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -207,7 +205,7 @@
                 <!-- Book browser -->
                 <div id="browser">
                     
-                    !-- Category -->
+                    <!-- Category -->
                     <div class="categoryTitle">Sci-Fi</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
@@ -217,7 +215,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}"
+                            	data-pdf="${book.link}
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -226,18 +224,21 @@
                         </#list>
                         </ul>
                     </div>   
+                                        
+                </div>    
+                
                 
                 <!-- Category -->
-                    <div class="categoryTitle">Adventure</div>
+                    <div class="categoryTitle">Romance</div>
                     <div class="category">
                         <ul class="categoryRow clearfix">
-                        <#list adven as book>	
+                        <#list romance as book>
                             <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
                             <#if premium>
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}"
+                            	data-pdf="${book.link}
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -245,8 +246,55 @@
                             </li>
                         </#list>
                         </ul>
-                    </div>                    
-                </div> 
+                    </div>   
+                                        
+                </div>    
+                
+
+                <!-- Category -->
+                    <div class="categoryTitle">Horror</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                        <#list horror as book>
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
+                            </#if>
+                            <#if book.ebook>
+                            	data-pdf="${book.link}
+                            	data-ebook="1"
+                            </#if>
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
+                            </li>
+                        </#list>
+                        </ul>
+                    </div>   
+                                        
+                </div>        
+                
+                <!-- Category -->
+                    <div class="categoryTitle">Adventure</div>
+                    <div class="category">
+                        <ul class="categoryRow clearfix">
+                        <#list adventure as book>
+                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
+                            <#if premium>
+                            	data-sub="1"
+                            </#if>
+                            <#if book.ebook>
+                            	data-pdf="${book.link}
+                            	data-ebook="1"
+                            </#if>
+                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
+                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
+                            </li>
+                        </#list>
+                        </ul>
+                    </div>   
+                                        
+                </div>    
+                
                 
                 <!-- Category -->
                     <div class="categoryTitle">Drama</div>
@@ -258,7 +306,7 @@
                             	data-sub="1"
                             </#if>
                             <#if book.ebook>
-                            	data-pdf="${book.link}"
+                            	data-pdf="${book.link}
                             	data-ebook="1"
                             </#if>
                                 data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
@@ -266,52 +314,12 @@
                             </li>
                         </#list>
                         </ul>
-                    </div>                    
-                </div> 
-                
-                <!-- Category -->
-                    <div class="categoryTitle">Horror</div>
-                    <div class="category">
-                        <ul class="categoryRow clearfix">
-                        <#list horror as book>
-                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
-                            <#if premium>
-                            	data-sub="1"
-                            </#if>
-                            <#if book.ebook>
-                            	data-pdf="${book.link}"
-                            	data-ebook="1"
-                            </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
-                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
-                            </li>
-                        </#list>
-                        </ul>
-                    </div>                    
-                </div> 
-                
-                <!-- Category -->
-                    <div class="categoryTitle">Romance</div>
-                    <div class="category">
-                        <ul class="categoryRow clearfix">
-                        <#list romance as book>	
-                            <li class="book" data-id="${book.getID()}" data-image="${book.cover}" data-title="${book.title}" 
-                            <#if premium>
-                            	data-sub="1"
-                            </#if>
-                            <#if book.ebook>
-                            	data-pdf="${book.link}"
-                            	data-ebook="1"
-                            </#if>
-                                data-copies="${book.numCopies}" data-out="${book.numOut}" data-author="${book.author.name}+" data-year="${book.getPubDate()}" data-genre="${book.genre}" data-rating="${book.rating}" data-descr="${book.desr}">
-                                <span><img class="tile__img" src="${book.cover}" alt="${book.title}"/></span>       
-                            </li>
-                        </#list>
-                        </ul>
-                    </div>                    
-                </div> 
+                    </div>   
+                                        
+                </div>    
                 
             </div>            
-        </div> <!--! end of #container -->        
+        </div> <!--! end of #container -->   
+    
     </body>
 </html>

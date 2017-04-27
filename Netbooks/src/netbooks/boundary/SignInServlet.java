@@ -55,8 +55,8 @@ public class SignInServlet extends HttpServlet {
 			if(request.getParameter("login") != null){
 					validateLogin(request,response);
 			}//if came here by login
-			else{
-				showHomePage(request,response);
+			else if(request.getParameter("user") != null){
+				showHomePage(request,response,request.getParameter("user"));
 			}//if came here by homepage link
 
 	}
@@ -69,7 +69,7 @@ public class SignInServlet extends HttpServlet {
 			HttpSession sess = request.getSession();
 			if(sess != null){
 				sess.invalidate();
-				sess = request.getSession();
+				sess = request.getSession(true);
 			}//create new session if a user was logged in prior
 			synchronized(sess){
 			//check if pass is valid
@@ -89,7 +89,7 @@ public class SignInServlet extends HttpServlet {
 	            	else
 	            		sess.setAttribute("premium", true);
 	            	}
-					showHomePage(request,response);
+					showHomePage(request,response,username);
 				}		
 		}
 		catch(Exception e){
@@ -98,14 +98,14 @@ public class SignInServlet extends HttpServlet {
 		
 	}
 	
-	public void showHomePage(HttpServletRequest request, HttpServletResponse response){
+	public void showHomePage(HttpServletRequest request, HttpServletResponse response,String username){
 		DefaultObjectWrapperBuilder db = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_25);
 		SimpleHash root = new SimpleHash(db.build());
 		String templateName = "home.ftl";
-		HttpSession sess = request.getSession();
+		HttpSession sess = request.getSession(false);
 		
 		
-		root.put("username", sess.getAttribute("username") );
+		root.put("username", username);
 		if((Boolean)sess.getAttribute("premium")){
 			root.put("premium",true);
 		}
